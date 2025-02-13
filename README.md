@@ -5,6 +5,7 @@ CyberHawks scripts for CCDC
 - ./services-test.ps1 - Script to test services (will run on Win10)
     - I'd like this to make DNS requests and HTTP requests
     - Check what traffic can make it through the PaloAlto firewall
+    - Check Host Firewall
 - ./windows-setup.ps1 - Script to setup a Windows Server 2019 machine for CCDC
     - Install all the tools we need
     - Configure the host firewall
