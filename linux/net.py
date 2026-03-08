@@ -26,4 +26,4 @@ while True:
    for saved in conns:
       if saved not in output:
          conns.remove(saved)
-   time.sleep(0.1)
+   time.sleep(0.01)
