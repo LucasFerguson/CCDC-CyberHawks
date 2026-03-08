@@ -5,6 +5,15 @@ param(
 	[switch]$ShowRawXml
 )
 
+# --- SELF-ELEVATION START ---
+if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+	$arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`""
+	Start-Process powershell.exe -Verb RunAs -ArgumentList $arguments
+	exit
+}
+# --- SELF-ELEVATION END ---
+
+
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
