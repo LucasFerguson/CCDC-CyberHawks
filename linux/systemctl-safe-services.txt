@@ -11,7 +11,6 @@ auditd.service
 avahi-daemon.service
 colord.service
 console-setup.service
-cron.service
 dbus.service
 dmesg.service
 fwupd.service
