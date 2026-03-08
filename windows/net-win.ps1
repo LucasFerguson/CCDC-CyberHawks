@@ -75,5 +75,5 @@ while ($true) {
 	}
 	$summaryData | Out-File -FilePath $summaryFile -Force
 
-	Start-Sleep -Seconds 1
+	Start-Sleep -Seconds 0.01
 }
