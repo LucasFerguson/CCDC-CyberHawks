@@ -2,4 +2,5 @@
 sudo find / -type f -perm /a+x 2>/dev/null | while read -r file; do if $(file "$file" | cut -d' ' -f2- | grep -Eq 'ELF '); then echo "$file"; fi done > elfs
 sudo rpm -qa | while read pkg; do rpm -ql "$pkg"; done > trk
 sudo python3 trk.py
-cat non_trk
+echo "NOT TRACKED (stripped is slight red flag):"
+cat non_trk | grep "." |  while read -r line; do if [ -z "$(sudo readelf -s "$line" | grep FUNC)" ]; then echo "$line -- stripped function names"; else echo "$line" fi done
