@@ -47,3 +47,16 @@ for service in base_services:
 
 if not diffs_found:
     print("No service configuration diffs found!")
+
+print("Checking for default systemd configuration settings (/etc/systemd/system.conf)...")
+SYSTEMD_DEFAULT_PATH = "/etc/systemd/system.conf"
+if os.path.exists(SYSTEMD_DEFAULT_PATH):
+    with open(SYSTEMD_DEFAULT_PATH, 'r') as file:
+        confs = [line for line in file.read().splitlines() if line.strip() and not line.startswith("#") and not line.startswith("[")]
+        if confs:
+            print("There are default configurations set! This isn't standard, maybe check these out:")
+            print("\n".join(confs))
+        else:
+            print("No default systemd configurations. All good!")
+else:
+    print("No default systemd configurations. All good!")
