@@ -22,6 +22,9 @@
         "/etc/postfix",
         "/etc/dovecot",
         "/bin",
-        "/var"
+        "/var",
+        "/sbin",
+        "/opt",
+        "/etc"
     ]
 }
