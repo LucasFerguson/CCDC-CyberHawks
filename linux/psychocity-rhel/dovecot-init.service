@@ -1,0 +1,13 @@
+[Unit]
+Description=One-time Dovecot init service
+ConditionPathExists=|!/etc/pki/dovecot/certs/dovecot.pem
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/bin/sh -c '\
+if [ ! -f /etc/pki/dovecot/certs/dovecot.pem ]; \
+then\
+  SSLDIR=/etc/pki/dovecot/ OPENSSLCONFIG=/etc/pki/dovecot/dovecot-openssl.cnf /usr/libexec/dovecot/mkcert.sh /dev/null 2>&1;\
+fi'
+
