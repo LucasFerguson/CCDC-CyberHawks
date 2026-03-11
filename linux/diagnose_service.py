@@ -67,9 +67,9 @@ for service in SERVICES:
     if len(output.splitlines()) == 1 and output.startswith(f"Unit {service}") and output.endswith("could not be found.\n"):
         print(f"ERROR! Service {service} could not be found!!")
         fixing_commands.append(f"Service {service} not present! Try installing the relevant package!")
-    elif "Active: active (running) since" in output:
+    elif "Active: active (running)" in output:
         print(f"Service {service} is running")
-    elif "Active: inactive (dead) since" in output:
+    elif "Active: inactive (dead)" in output:
         print(f"ERROR! Service {service} is not running! To restore, try running sudo systemctl start {service}")
         fixing_commands.append(f"Service {service} is not running! To restore, try running sudo systemctl start {service}")
     else:
