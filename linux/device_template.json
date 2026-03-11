@@ -1,0 +1,15 @@
+{
+    "ipv4_addresses": [ 
+        "127.0.0.1/8"
+    ],
+    "services": [
+        "myservice"
+    ],
+    "ports": [
+        {
+            "port_no": 80,
+            "process_name": "apache2"
+        }
+    ],
+    "hashfile": "device_hashes"
+}

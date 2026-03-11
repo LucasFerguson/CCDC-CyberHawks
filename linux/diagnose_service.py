@@ -1,11 +1,17 @@
 import subprocess
 import hashlib
-# Read device JSON file
+import json
 
-IPV4_ADDRESSES = ["172.30.130.205/20"]
-SERVICES = ["cron", "postfix", "crond"]
-PORTS = [(110, "dovecot"), (25, "postfix")] # (port_no, process_name)
-HASHES = [("net.py", "f08de786131bada26778755e603310ffd7908f9850f3a6fd761e41e2b5a2ce37"), ("net3.py", "g08de786131bada26778755e603310ffd7908f9850f3a6fd761e41e2b5a2ce37"), ("linpeas.sh", "g08de786131bada26778755e603310ffd7908f9850f3a6fd761e41e2b5a2ce37")] # (file path, sha256 hash)
+# Read device JSON file
+with open('device.json', 'r') as file:
+    device = json.load(file)
+
+assert "ipv4_addresses" in device and "services" in device and "ports" in device and "hashfile" in device, "device.json doesn't have the required attributes!"
+
+IPV4_ADDRESSES = device['ipv4_addresses']
+SERVICES = device['services']
+PORTS = device['ports']
+HASHFILE = device['hashfile']
 
 def cmd(command):
     try:
@@ -73,7 +79,10 @@ for service in SERVICES:
 print("Checking if neccesary ports are running...")
 ss = [line.split() for line in cmd("sudo ss -plunta").splitlines()[1:]]
 ss_ports = [s[4] for s in ss]
-for port_no, process_name in PORTS:
+for portspec in PORTS:
+    port_no = portspec['port_no']
+    process_name = portspec['process_name']
+
     tofind = f"0.0.0.0:{port_no}"
     if tofind in ss_ports:
         conn = ss[ss_ports.index(tofind)]
@@ -93,7 +102,15 @@ for port_no, process_name in PORTS:
 
 # Check if the hashes have changed
 print("Checking hashes...")
-for filepath,hash in HASHES:
+
+with open(HASHFILE, 'r') as file:
+    HASHES = file.read().splitlines()
+
+HASHES = [line.split(" ") for line in HASHES]
+
+for hashspec in HASHES:
+    filepath = hashspec[0]
+    hash = hashspec[1]
     try:
         with open(filepath, 'rb') as file:
             cntnt = file.read()
