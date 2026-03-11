@@ -16,6 +16,7 @@
     "preserve_files": [
         "/home/myuser/myimportantfile",
         "/somewhere/myimportantservicefolder",
+        "/home/myuser",
         "/bin",
         "/var",
         "/sbin",
