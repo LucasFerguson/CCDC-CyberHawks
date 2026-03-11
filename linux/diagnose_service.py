@@ -3,7 +3,7 @@ import subprocess
 
 IPV4_ADDRESSES = ["172.30.130.205/20"]
 SERVICES = ["cron", "postfix", "crond"]
-PORTS = [] # {port_no, process_name}
+PORTS = [(110, "dovecot"), (25, "postfix")] # {port_no, process_name}
 
 def cmd(command):
     try:
@@ -68,6 +68,25 @@ for service in SERVICES:
         print("Warning! Unable to parse systemctl status output. Output:\n", output)
 
 # Check if ports are open and right names are attached to the port
-
+print("Checking if neccesary ports are running...")
+ss = [line.split() for line in cmd("sudo ss -plunta").splitlines()[1:]]
+ss_ports = [s[4] for s in ss]
+for port_no, process_name in PORTS:
+    tofind = f"0.0.0.0:{port_no}"
+    if tofind in ss_ports:
+        conn = ss[ss_ports.index(tofind)]
+        if len(conn) < 7:
+            print(f"Warning! Port {port_no} is present but ss doesn't show the process associated with it...check it yourself!")
+        else:
+            process = "".join(conn[6:]).split("\"")
+            name = process[1]
+            if name == process_name:
+                print(f"Port {port_no} is listening by process {process_name}")
+            else:
+                print(f"ERROR! Port {port_no} is listening, but by process {name} instead of {process_name}!")
+                fixing_commands.append(f"ERROR! Port {port_no} is listening, but by process {name} instead of {process_name}!")
+    else:
+        print(f"ERROR! Port {port_no} is not being listened on!")
+        fixing_commands.append(f"ERROR! Port {port_no} is not being listened on!")
 
 # Check if the hashes have changed
