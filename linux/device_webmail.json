@@ -1,7 +1,7 @@
 {
     "ipv4_addresses": [ 
         "127.0.0.1/8",
-        ""
+        "compeition_day_ip/cidr"
     ],
     "services": [
         "postfix",

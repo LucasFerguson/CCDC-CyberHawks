@@ -1,14 +1,15 @@
 {
     "ipv4_addresses": [ 
-        "127.0.0.1/8"
+        "127.0.0.1/8",
+        "compeition_day_ip/cidr"
     ],
     "services": [
         "myservice"
     ],
     "ports": [
         {
-            "port_no": 80,
-            "process_name": "apache2"
+            "port_no": 1234,
+            "process_name": "name of process running on port 1234"
         }
     ],
     "hashfile": "device_hashes",
