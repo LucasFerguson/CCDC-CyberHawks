@@ -2,6 +2,7 @@ import os
 import subprocess
 from difflib import unified_diff
 import json
+from gen_psycho_dropins import generate_dropin_fromfile, generate_dropin_fromservice, DROPIN_SRCFILE_DELIM, DROPINS_EXT
 
 def cmd(command):
     try:
@@ -21,10 +22,15 @@ BASEFOLDER = f"psychocity-{device['arch']}"
 
 # Check for presence of services from base folder
 base_services = []
+dropin_files = {}
 with os.scandir(BASEFOLDER) as files:
     for file in files:
         if file.is_file():
-            base_services.append(file.name)
+            if file.name.endswith(DROPINS_EXT):
+                dropin_files[file.name[:-1*len(DROPINS_EXT)]] = file.name
+            else:
+                base_services.append(file.name)
+
 
 print("Diffing...")
 diffs_found = False
@@ -33,26 +39,71 @@ diffs_found = False
 for service in base_services:
     confpath = cmd(f"systemctl show -P FragmentPath {service}").strip()
     if confpath: # service is present
+        # Compare core configurations
         base_path = BASEFOLDER + "/" + service
         with open(base_path, 'r') as file:
-            basecontent = [line for line in file.read().splitlines() if not line.startswith("#")]
+            basecontent = [line.strip() for line in file.read().splitlines() if line.strip() and not line.startswith("#")]
         with open(confpath, 'r') as file:
-            realcontent = [line for line in file.read().splitlines() if not line.startswith("#")]
+            realcontent = [line.strip() for line in file.read().splitlines() if line.strip() and not line.startswith("#")]
 
-        # Compare
         if basecontent != realcontent: # service files not the same!
             print(f"\nSystem's service {service} configuration file is different than the one stored!")
             print("\n".join(list(unified_diff(basecontent, realcontent, fromfile=base_path, tofile=confpath))))
             diffs_found = True
+        
+        # Compare dropins (extension configurations) if present
+        if service in dropin_files:
+            dropin_summfile = dropin_files[service]
+            dropin_dict_base = generate_dropin_fromfile(f"{BASEFOLDER}/{dropin_summfile}", is_summary_file=True)
+            dropin_dict_real = generate_dropin_fromservice(service)
+
+            base_section_uniq = [section for section in dropin_dict_base if section not in dropin_dict_real]
+            real_section_uniq = [section for section in dropin_dict_real if section not in dropin_dict_base]
+            shared_sections = [section for section in dropin_dict_base if section not in base_section_uniq] # get sections shared by both real and base
+
+            if base_section_uniq:
+                diffs_found = True
+                print(f"Entire drop-in sections {base_section_uniq} in the stored {dropin_summfile} file that aren't present in service {service} running on this system!")
+                print("Configurations:")
+                for section in base_section_uniq:
+                    print(f"--- [{section}]")
+                    conf_strs = [f"--- {conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in dropin_dict_base[section]]
+                    print("\n".join(conf_strs))
+            if real_section_uniq:
+                diffs_found = True
+                print(f"Entire drop-in sections {real_section_uniq} in service {service} running on this system that aren't present in the stored {dropin_summfile} file!")
+                print("Configurations:")
+                for section in real_section_uniq:
+                    print(f"+++ [{section}]")
+                    conf_strs = [f"+++ {conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in dropin_dict_real[section]]
+                    print("\n".join(conf_strs))
+            if shared_sections:
+                for section in shared_sections:
+                    base_conflst = dropin_dict_base[section]
+                    real_conflst = dropin_dict_real[section]
+                    base_confs = [lst[0] for lst in base_conflst]
+                    real_confs = [lst[0] for lst in real_conflst]
+
+                    base_uniq = [lst for lst in base_conflst if lst[0] not in real_confs]
+                    real_uniq = [lst for lst in real_conflst if lst[0] not in base_confs]
+
+                    if base_uniq or real_uniq:
+                        diffs_found = True
+                        print(f"Service {service} differs!! (+++ are confs present on this system, --- are confs stored in ground truth files)")
+                        base_strs = [f"--- {conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in base_uniq]
+                        real_strs = [f"+++ {conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in real_uniq]
+                        
+                        print("\n".join([f"[{section}]"] + base_strs + real_strs))
+            
 
 if not diffs_found:
     print("No service configuration diffs found!")
 
-print("Checking for default systemd configuration settings (/etc/systemd/system.conf)...")
+print("\nChecking for default systemd configuration settings (/etc/systemd/system.conf)...")
 SYSTEMD_DEFAULT_PATH = "/etc/systemd/system.conf"
 if os.path.exists(SYSTEMD_DEFAULT_PATH):
     with open(SYSTEMD_DEFAULT_PATH, 'r') as file:
-        confs = [line for line in file.read().splitlines() if line.strip() and not line.startswith("#") and not line.startswith("[")]
+        confs = [line.strip() for line in file.read().splitlines() if line.strip() and not line.startswith("#") and not line.startswith("[")]
         if confs:
             print("There are default configurations set! This isn't standard, maybe check these out:")
             print("\n".join(confs))

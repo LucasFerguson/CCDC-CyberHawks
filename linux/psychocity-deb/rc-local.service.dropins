@@ -1,0 +1,5 @@
+[Unit]
+After=network-online.target # src file: /usr/lib/systemd/system/rc-local.service.d/debian.conf
+[Service]
+StandardOutput=journal+console # src file: /usr/lib/systemd/system/rc-local.service.d/debian.conf
+StandardError=journal+console # src file: /usr/lib/systemd/system/rc-local.service.d/debian.conf
