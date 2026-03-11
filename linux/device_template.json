@@ -11,5 +11,9 @@
             "process_name": "apache2"
         }
     ],
-    "hashfile": "device_hashes"
+    "hashfile": "device_hashes",
+    "preserve_files": [
+        "/etc/myservice",
+        "/home/myuser/myimportantfile"
+    ]
 }

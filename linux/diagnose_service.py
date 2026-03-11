@@ -109,18 +109,18 @@ with open(HASHFILE, 'r') as file:
 HASHES = [line.split(" ") for line in HASHES]
 
 for hashspec in HASHES:
-    filepath = hashspec[0]
-    hash = hashspec[1]
+    filepath = "".join(hashspec[:-1])
+    hash = hashspec[-1]
     try:
         with open(filepath, 'rb') as file:
             cntnt = file.read()
         curr_hash = hashlib.sha256(cntnt).hexdigest()
         if curr_hash != hash:
-            print(f"ERROR! File {filepath}'s SHA256 hash doesn't match stored hash!!")
-            fixing_commands.append(f"ERROR! File {filepath}'s SHA256 hash doesn't match stored hash!")
+            print(f"ERROR! SHA256 hash of file '{filepath}' doesn't match stored hash!")
+            fixing_commands.append(f"ERROR! SHA256 hash of file '{filepath}' doesn't match stored hash!")
     except FileNotFoundError:
-        print(f"ERROR! File {filepath} doesn't exist!!")
-        fixing_commands.append(f"ERROR! File {filepath} doesn't exist!!")
+        print(f"ERROR! File '{filepath}' doesn't exist!!")
+        fixing_commands.append(f"ERROR! File '{filepath}' doesn't exist!!")
 
 if fixing_commands:
     print("\nERROR SUMMARY:")

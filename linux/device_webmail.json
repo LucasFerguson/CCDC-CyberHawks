@@ -17,5 +17,11 @@
             "process_name": "postfix"
         }
     ],
-    "hashfile": "device_hashes"
+    "hashfile": "device_hashes",
+    "preserve_files": [
+        "/etc/postfix",
+        "/etc/dovecot",
+        "/bin",
+        "/var"
+    ]
 }
