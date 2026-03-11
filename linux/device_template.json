@@ -15,11 +15,11 @@
     "hashfile": "device_hashes",
     "preserve_files": [
         "/home/myuser/myimportantfile",
+        "/somewhere/myimportantservicefolder",
         "/bin",
         "/var",
         "/sbin",
         "/opt",
-        "/etc",
-        "/somewhere/myimportantservicefolder"
+        "/etc"
     ]
 }
