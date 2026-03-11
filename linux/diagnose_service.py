@@ -51,7 +51,7 @@ print("Note: if you have multiple network interfaces, this is NOT checking that 
 print("Checking for:", IPV4_ADDRESSES)
 for ipv4 in IPV4_ADDRESSES:
     if not (output:=cmd(f"ip a | grep 'inet {ipv4}'")):
-        print("ERROR! Required IPv4 address not found in running ip a. To restore, try running: sudo ip addr add <ip addr>/<cidr> dev <interface>")
+        print(f"ERROR! Required IPv4 address {ipv4} not found in running ip a. To restore, try running: sudo ip addr add <ip addr>/<cidr> dev <interface>")
         if "/" in ipv4:
             fixing_commands.append(f"Required IPv4 address {ipv4} not found in ip a. Try running: sudo ip addr add {ipv4} dev <interface>")
         else:
@@ -84,8 +84,12 @@ for portspec in PORTS:
     process_name = portspec['process_name']
 
     tofind = f"0.0.0.0:{port_no}"
-    if tofind in ss_ports:
-        conn = ss[ss_ports.index(tofind)]
+    tofind2 = f"*:{port_no}"
+    if tofind in ss_ports or tofind2 in ss_ports:
+        if tofind in ss_ports:
+            conn = ss[ss_ports.index(tofind)]
+        else:
+            conn = ss[ss_ports.index(tofind2)]
         if len(conn) < 7:
             print(f"Warning! Port {port_no} is present but ss doesn't show the process associated with it...check it yourself!")
         else:
