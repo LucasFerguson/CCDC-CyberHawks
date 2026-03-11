@@ -1,9 +1,11 @@
 import subprocess
+import hashlib
 # Read device JSON file
 
 IPV4_ADDRESSES = ["172.30.130.205/20"]
 SERVICES = ["cron", "postfix", "crond"]
-PORTS = [(110, "dovecot"), (25, "postfix")] # {port_no, process_name}
+PORTS = [(110, "dovecot"), (25, "postfix")] # (port_no, process_name)
+HASHES = [("net.py", "f08de786131bada26778755e603310ffd7908f9850f3a6fd761e41e2b5a2ce37"), ("net3.py", "g08de786131bada26778755e603310ffd7908f9850f3a6fd761e41e2b5a2ce37"), ("linpeas.sh", "g08de786131bada26778755e603310ffd7908f9850f3a6fd761e41e2b5a2ce37")] # (file path, sha256 hash)
 
 def cmd(command):
     try:
@@ -34,7 +36,7 @@ else:
     print("WARNING!! Some network interfaces down")
     print("To restore, try running: sudo ip link set dev <interface> up")
     for int in up:
-        fixing_commands.append(f"sudo ip link set dev {int} up")
+        fixing_commands.append(f"Network Interface DOWN: {int}. Try running sudo ip link set dev {int} up")
         print("Network Interface DOWN: ", int)
 
 # Check if correct IP addresses are set
@@ -45,9 +47,9 @@ for ipv4 in IPV4_ADDRESSES:
     if not (output:=cmd(f"ip a | grep 'inet {ipv4}'")):
         print("ERROR! Required IPv4 address not found in running ip a. To restore, try running: sudo ip addr add <ip addr>/<cidr> dev <interface>")
         if "/" in ipv4:
-            fixing_commands.append(f"sudo ip addr add {ipv4} dev <interface>")
+            fixing_commands.append(f"Required IPv4 address {ipv4} not found in ip a. Try running: sudo ip addr add {ipv4} dev <interface>")
         else:
-            fixing_commands.append(f"sudo ip addr add {ipv4}/<cidr> dev <interface>")
+            fixing_commands.append(f"Required IPv4 address {ipv4} not found in ip a. Try running: sudo ip addr add {ipv4}/<cidr> dev <interface>")
     else:
         print(f'IPv4 address {ipv4} assigned! Looks like to {output.splitlines()[0].split(" ")[-1]}')
 
@@ -62,8 +64,8 @@ for service in SERVICES:
     elif "Active: active (running) since" in output:
         print(f"Service {service} is running")
     elif "Active: inactive (dead) since" in output:
-        print(f"ERROR! Service {service} is dead! To restore, try running sudo systemctl start {service}")
-        fixing_commands.append(f"sudo systemctl start {service}")
+        print(f"ERROR! Service {service} is not running! To restore, try running sudo systemctl start {service}")
+        fixing_commands.append(f"Service {service} is not running! To restore, try running sudo systemctl start {service}")
     else:
         print("Warning! Unable to parse systemctl status output. Output:\n", output)
 
@@ -90,3 +92,21 @@ for port_no, process_name in PORTS:
         fixing_commands.append(f"ERROR! Port {port_no} is not being listened on!")
 
 # Check if the hashes have changed
+print("Checking hashes...")
+for filepath,hash in HASHES:
+    try:
+        with open(filepath, 'rb') as file:
+            cntnt = file.read()
+        curr_hash = hashlib.sha256(cntnt).hexdigest()
+        if curr_hash != hash:
+            print(f"ERROR! File {filepath}'s SHA256 hash doesn't match stored hash!!")
+            fixing_commands.append(f"ERROR! File {filepath}'s SHA256 hash doesn't match stored hash!")
+    except FileNotFoundError:
+        print(f"ERROR! File {filepath} doesn't exist!!")
+        fixing_commands.append(f"ERROR! File {filepath} doesn't exist!!")
+
+if fixing_commands:
+    print("\nERROR SUMMARY:")
+    print("\n".join(fixing_commands))
+else:
+    print("\nNO ERRORS FOUND! Services pass initial health checks")
