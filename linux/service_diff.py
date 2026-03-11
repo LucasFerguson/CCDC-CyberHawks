@@ -94,6 +94,15 @@ for service in base_services:
                         real_strs = [f"+++ {conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in real_uniq]
                         
                         print("\n".join([f"[{section}]"] + base_strs + real_strs))
+        elif (dropin_dict:=generate_dropin_fromservice(service)): # no dropins present in basefolder but they are present on the system!
+            diffs_found = True
+            print(f"Service {service} dropins present on system but not present in grouth truth files!!")
+            summ = []
+            for section in dropin_dict:
+                summ.append(f"+++ [{section}]")
+                conf_strs = [f"+++ {conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in dropin_dict[section]]
+                summ.extend(conf_strs)
+            print("\n".join(summ))
             
 
 if not diffs_found:
@@ -108,6 +117,6 @@ if os.path.exists(SYSTEMD_DEFAULT_PATH):
             print("There are default configurations set! This isn't standard, maybe check these out:")
             print("\n".join(confs))
         else:
-            print("No default systemd configurations. All good!")
+            print("No default systemd configurations. Good!")
 else:
-    print("No default systemd configurations. All good!")
+    print("No default systemd configurations. Good!")
