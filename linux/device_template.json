@@ -17,6 +17,7 @@
         "/home/myuser/myimportantfile",
         "/somewhere/myimportantservicefolder",
         "/home/myuser",
+        "/root",
         "/bin",
         "/var",
         "/sbin",

@@ -4,22 +4,21 @@
         "compeition_day_ip/cidr"
     ],
     "services": [
-        "postfix",
-        "dovecot"
+        "httpd"
     ],
     "ports": [
         {
-            "port_no": 110,
-            "process_name": "dovecot"
+            "port_no": 80,
+            "process_name": "httpd"
         },
         {
-            "port_no": 25,
-            "process_name": "postfix"
+            "port_no": 443,
+            "process_name": "httpd"
         }
     ],
     "hashfile": "device_hashes",
     "preserve_files": [
-        "/home/sysadmin/",
+        "/home/sysadmin",
         "/root",
         "/bin",
         "/var",
