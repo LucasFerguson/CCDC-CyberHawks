@@ -26,7 +26,7 @@ sudo rg "\.so" /proc/*/maps 2>/dev/null | rg -v "/usr/lib64/|/lib/|/usr/lib/|/li
 
 # Check ld cache:
 echo ""
-echo "Check ld cache for not normal shared objects:"
+echo "Check ld cache for shared objects in weird places:"
 strings /etc/ld.so.cache | rg "\.so" | rg -v "/usr/lib64/|/lib/|/usr/lib/|/lib64|glibc-ld.so.cache1.1"
 
 # Check /etc/ld.so.conf
