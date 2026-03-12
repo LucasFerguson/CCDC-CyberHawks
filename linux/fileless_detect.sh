@@ -10,6 +10,7 @@ sudo cat /proc/*/exe | grep shm 2>/dev/null
 sudo cat /proc/*/cmdline | grep shm 2>/dev/null
 
 # Check for /proc/*/maps with rwx
-sudo grep "rwxp" /proc/*/maps 
+sudo rg "rwxp" /proc/*/maps 2>/dev/null
 
-# lsof -p * check for open files with deleted entries. grep DEL
+# Check for open files with deleted entries
+sudo lsof | rg "(deleted)"
