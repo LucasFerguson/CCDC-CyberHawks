@@ -16,6 +16,7 @@ for hashfile in hashfiles:
     path = f'{HASHDIR}/{hashfile}'
     hashstats = os.stat(path)
     hashstat = max(hashstats.st_mtime, hashstats.st_ctime)
+    maxstat = 0
     with open(path, 'r') as file:
         hashedfiles = [" ".join(line.strip().split(" ")[2:]) for line in file.read().splitlines()]
     for hashedfile in hashedfiles:
@@ -23,7 +24,8 @@ for hashfile in hashfiles:
         if os.path.exists(filepath):
             stats = os.stat(filepath)
             stat = max(stats.st_mtime, stats.st_ctime)
-            if hashstat - 10 > stat:
-                print(hashstat-stat)
-
+            if stat > maxstat:
+                maxstat = stat
+    if maxstat != 0 and hashstat - 4 > maxstat:
+        print(hashstat-maxstat)
 # cat network-manager.md5sums | cut -d' ' -f3- | while read -r line; do sudo stat -c "%W %Y %Z %n" "/$line"; done
