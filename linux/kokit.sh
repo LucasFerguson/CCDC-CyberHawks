@@ -5,14 +5,21 @@
 # lsmod | awk '{print $1}' | sort > baseline.txt
 # diff baseline.txt <(lsmod | awk '{print $1}' | sort)
 
-# Compare lsmod and /proc/modules
+# Check for out-of-tree modules
+cat /proc/modules | grep "(OE)"
 
+# Compare lsmod and /proc/modules
+lsmod | cut -d' ' -f1 | grep -Ev "^Module$" > lsmod_output
+cat /proc/modules | cut -d' ' -f1 > proc_modules_output
+diff lsmod_output proc_modules_output
 
 # Check dmesg logs
 sudo dmesg | grep -i "module"
 
-# Check /etc/modules and /lib/modules-load.d/ for malicious .ko's
+# Check for autostart malicious .ko's
 # More generally, check systemd-modules-load.service for ConditionDirectoryNotEmpty dirs
+cat $(systemctl show -P FragmentPath systemd-modules-load.service) | grep "ConditionDirectoryNotEmpty=|" | cut -d'|' -f2
+
 # and check all of those. use dropin finder functionality
 # systemd-modules-load.service will also look at the modules-load and rd.modules-load kernel command-line parameters. Find out what these are!!
 
@@ -26,7 +33,9 @@ sudo dmesg | grep -i "module"
 
 # Check for Kernel Taint!
 cat /proc/sys/kernel/tainted
-./kernel_chktaint.sh
+chmod +x kernel_chktaint
+./kernel_chktaint
+dmesg | grep taint
 
 # Detect malicious kexec. This is why important to prevent reloading!
 
