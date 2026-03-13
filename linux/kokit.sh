@@ -63,6 +63,6 @@ sudo chmod 700 "$(which insmod)" "$(which modprobe)"
 # Monitoring Module Events with Auditd
 echo ""
 echo "Attempt to still audit insmod and modprobe:"
-sudo auditctl -w "$(which insmod)" -p x -k modload
-sudo auditctl -w "$(which modprobe)" -p x -k modload
+sudo auditctl -w "$(which insmod)" -p x -k modload 2>&1
+sudo auditctl -w "$(which modprobe)" -p x -k modload 2>&1
 # ausearch -k modload
