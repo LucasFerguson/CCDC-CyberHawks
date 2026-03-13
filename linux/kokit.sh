@@ -1,8 +1,8 @@
 #!/bin/bash
 # Detecting Malicious Kernel Modules
 
-# sudo rkhunter -c
-# sudo chkrootkit
+sudo rkhunter -c
+sudo chkrootkit
 
 # Diff /proc/modules to standard_kernel_modules file
 # lsmod | awk '{print $1}' | sort > baseline.txt
