@@ -1,5 +1,5 @@
 #!/bin/bash
 cd ~
-apt install fzf ripgrep rkhunter chkrootkit auditd tcpdump binutils nmap logrotate wget curl
+apt install fzf ripgrep rkhunter chkrootkit auditd dos2unix tcpdump binutils nmap logrotate wget curl
 wget https://github.com/DominicBreuker/pspy/releases/download/v1.2.1/pspy64
 # Run av.sh?
