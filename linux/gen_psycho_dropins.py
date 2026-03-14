@@ -47,6 +47,8 @@ def generate_dropin_fromfile(filepath, dropin_dictionary=None, is_summary_file=F
                 dropin_dict[section].append([line[:delim_idx], line[delim_idx+len(DROPIN_SRCFILE_DELIM):]])    
             else:
                 dropin_dict[section].append([line, filepath])
+    
+    dropin_dict = {section:dropin_dict[section] for section in dropin_dict if dropin_dict[section]}
     return dropin_dict
 
 # Generates a summary configuration file of all dropin configurations
