@@ -1,2 +1,1 @@
 [Service]
-LoadCredential= # src file: /etc/systemd/system/systemd-sysusers.service.d/00-wsl.conf

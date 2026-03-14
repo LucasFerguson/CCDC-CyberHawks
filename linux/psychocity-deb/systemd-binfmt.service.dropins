@@ -1,5 +1,4 @@
 [Unit]
-ConditionVirtualization=!container # src file: /etc/systemd/system/systemd-binfmt.service.d/00-wsl.conf
 [Service]
 ExecStop= # src file: /run/systemd/generator/systemd-binfmt.service.d/override.conf
 ExecStart=/bin/sh -c '(echo -1 > /proc/sys/fs/binfmt_misc/WSLInterop) ; (echo ":WSLInterop:M::MZ::/init:P" > /proc/sys/fs/binfmt_misc/register)' # src file: /run/systemd/generator/systemd-binfmt.service.d/override.conf

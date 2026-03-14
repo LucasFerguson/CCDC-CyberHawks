@@ -2,7 +2,7 @@ import os
 import subprocess
 from difflib import unified_diff
 import json
-from gen_psycho_dropins import generate_dropin_fromfile, generate_dropin_fromservice, DROPIN_SRCFILE_DELIM, DROPINS_EXT
+from gen_psycho_dropins import generate_dropin_fromfile, generate_dropin_fromservice, get_file_configurations, DROPIN_SRCFILE_DELIM, DROPINS_EXT
 
 
 def cmd(command):
@@ -11,18 +11,6 @@ def cmd(command):
         return output
     except subprocess.CalledProcessError as e:
         return ""
-
-def get_file_configurations(path, keep_sections=True, only_exec=True):
-    def keep_line(line):
-        if not line.strip() or line.startswith("#"):
-            return False
-        if not keep_sections and line.startswith("["):
-            return False
-        if only_exec:
-            return "=" in line and "exec" in line.split("=")[0].lower()
-
-    with open(path, 'r') as file:
-        return [line.strip() for line in file.read().splitlines() if keep_line(line)]
 
 # Read device JSON file
 with open('device.json', 'r') as file:
@@ -122,7 +110,7 @@ if not diffs_found:
 print("\nChecking for default systemd configuration settings (/etc/systemd/system.conf)...")
 SYSTEMD_DEFAULT_PATH = "/etc/systemd/system.conf"
 if os.path.exists(SYSTEMD_DEFAULT_PATH):
-    confs = get_file_configurations(SYSTEMD_DEFAULT_PATH, keep_sections=True)
+    confs = get_file_configurations(SYSTEMD_DEFAULT_PATH, keep_sections=False)
     if confs:
         print("There are default configurations set! This isn't standard, maybe check these out:")
         print("\n".join(confs))

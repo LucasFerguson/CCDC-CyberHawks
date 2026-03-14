@@ -1,4 +1,1 @@
 [Mount]
-Type=fuse.snapfuse # src file: /run/systemd/generator/snap-core22-2339.mount.d/container.conf
-Options=nodev,ro,x-gdu.hide,x-gvfs-hide,allow_other # src file: /run/systemd/generator/snap-core22-2339.mount.d/container.conf
-LazyUnmount=yes # src file: /run/systemd/generator/snap-core22-2339.mount.d/container.conf
