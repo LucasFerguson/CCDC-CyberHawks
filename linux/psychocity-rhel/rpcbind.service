@@ -1,0 +1,32 @@
+[Unit]
+Description=RPC Bind
+Documentation=man:rpcbind(8)
+DefaultDependencies=no
+RequiresMountsFor=/run/rpcbind
+
+# Make sure we use the IP addresses listed for
+# rpcbind.socket, no matter how this unit is started.
+Requires=rpcbind.socket
+Wants=rpcbind.target systemd-tmpfiles-setup.service
+After=systemd-tmpfiles-setup.service
+
+[Service]
+ProtectSystem=full
+ProtectHome=true
+PrivateDevices=true
+ProtectHostname=true
+ProtectClock=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+RestrictRealtime=true
+Type=notify
+# distro can provide a drop-in adding EnvironmentFile=-/??? if needed.
+EnvironmentFile=-/etc/rpcbind.conf
+EnvironmentFile=-/etc/default/rpcbind
+EnvironmentFile=-/etc/sysconfig/rpcbind
+ExecStart=/usr/bin/rpcbind $RPCBIND_OPTIONS -w -f
+
+[Install]
+WantedBy=multi-user.target

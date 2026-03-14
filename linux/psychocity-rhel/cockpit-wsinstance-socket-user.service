@@ -1,0 +1,12 @@
+[Unit]
+Description=Dynamic user for /run/cockpit/wsinstance/ sockets
+Documentation=man:cockpit-ws(8)
+BindsTo=cockpit.service
+
+[Service]
+DynamicUser=yes
+User=cockpit-wsinstance-socket
+Group=cockpit-wsinstance-socket
+Type=oneshot
+ExecStart=/bin/true
+RemainAfterExit=yes
