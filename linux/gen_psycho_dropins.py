@@ -2,6 +2,7 @@ import os
 import subprocess
 import json
 
+
 def cmd(command):
     try:
         output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT).decode() # .split("\n")

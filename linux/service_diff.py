@@ -4,6 +4,7 @@ from difflib import unified_diff
 import json
 from gen_psycho_dropins import generate_dropin_fromfile, generate_dropin_fromservice, DROPIN_SRCFILE_DELIM, DROPINS_EXT
 
+
 def cmd(command):
     try:
         output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT).decode() # .split("\n")
