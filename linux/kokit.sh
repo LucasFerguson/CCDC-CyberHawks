@@ -1,12 +1,20 @@
 #!/bin/bash
 # Detecting Malicious Kernel Modules
 
+function echol(){
+	echo "";
+	echo "$@";
+}
+
+echo "Check for module blacklisting (look for blacklist <module> and install <module> /bin/false command)..."
+ls /etc/modprobe.d | while read -r line; do echo "/etc/modprobe.d/$line contents:"; cat "/etc/modprobe.d/$line" | rg -v "^#"; echo ""; done
+
+echo "Check for GRUB-based module blacklisting:"
+rg "blacklist" /etc/default/grub
+
+echo ""
 sudo rkhunter -c
 sudo chkrootkit
-
-# Diff /proc/modules to standard_kernel_modules file
-# lsmod | awk '{print $1}' | sort > baseline.txt
-# diff baseline.txt <(lsmod | awk '{print $1}' | sort)
 
 # Check for out-of-tree modules
 echo ""
@@ -36,7 +44,7 @@ cat $(systemctl show -P FragmentPath systemd-modules-load.service) | grep "Condi
 # and check all of those. use dropin finder functionality
 # systemd-modules-load.service will also look at the modules-load and rd.modules-load kernel command-line parameters. Find out what these are!!
 
-# Verify module signatures
+# Check for module signatures
 echo ""
 echo "Loaded modules without a signature:"
 cat /proc/modules | cut -d' ' -f1 | while read -r line; do
