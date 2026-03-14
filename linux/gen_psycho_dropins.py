@@ -9,7 +9,7 @@ def cmd(command):
     except subprocess.CalledProcessError as e:
         return ""
 
-def get_file_configurations(path, keep_sections=True, only_exec=True):
+def get_file_configurations(path, keep_sections=False, only_exec=True):
     def keep_line(line):
         if not line.strip() or line.startswith("#"):
             return False
