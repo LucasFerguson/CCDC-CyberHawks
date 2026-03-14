@@ -11,6 +11,18 @@ def cmd(command):
     except subprocess.CalledProcessError as e:
         return ""
 
+def get_file_configurations(path, keep_sections=True, only_exec=True):
+    def keep_line(line):
+        if not line.strip() or line.startswith("#"):
+            return False
+        if not keep_sections and line.startswith("["):
+            return False
+        if only_exec:
+            return "=" in line and "exec" in line.split("=")[0].lower()
+
+    with open(path, 'r') as file:
+        return [line.strip() for line in file.read().splitlines() if keep_line(line)]
+
 # Read device JSON file
 with open('device.json', 'r') as file:
     device = json.load(file)
@@ -41,10 +53,8 @@ for service in base_services:
     if confpath: # service is present
         # Compare core configurations
         base_path = BASEFOLDER + "/" + service
-        with open(base_path, 'r') as file:
-            basecontent = [line.strip() for line in file.read().splitlines() if line.strip() and not line.startswith("#")]
-        with open(confpath, 'r') as file:
-            realcontent = [line.strip() for line in file.read().splitlines() if line.strip() and not line.startswith("#")]
+        basecontent = get_file_configurations(base_path)
+        realcontent = get_file_configurations(confpath)
 
         if basecontent != realcontent: # service files not the same!
             print(f"\nSystem's service {service} configuration file is different than the one stored!")
@@ -111,12 +121,11 @@ if not diffs_found:
 print("\nChecking for default systemd configuration settings (/etc/systemd/system.conf)...")
 SYSTEMD_DEFAULT_PATH = "/etc/systemd/system.conf"
 if os.path.exists(SYSTEMD_DEFAULT_PATH):
-    with open(SYSTEMD_DEFAULT_PATH, 'r') as file:
-        confs = [line.strip() for line in file.read().splitlines() if line.strip() and not line.startswith("#") and not line.startswith("[")]
-        if confs:
-            print("There are default configurations set! This isn't standard, maybe check these out:")
-            print("\n".join(confs))
-        else:
-            print("No default systemd configurations. Good!")
+    confs = get_file_configurations(SYSTEMD_DEFAULT_PATH, keep_sections=True)
+    if confs:
+        print("There are default configurations set! This isn't standard, maybe check these out:")
+        print("\n".join(confs))
+    else:
+        print("No default systemd configurations. Good!")
 else:
     print("No default systemd configurations. Good!")
