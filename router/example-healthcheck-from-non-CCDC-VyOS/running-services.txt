@@ -1,0 +1,30 @@
+
+24 loaded units listed.
+  acpid.service            loaded active running ACPI event daemon
+ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
+  atd.service              loaded active running Deferred execution scheduler
+  atopacct.service         loaded active running Atop process accounting daemon
+  atop.service             loaded active running Atop advanced performance monitor
+  auditd.service           loaded active running Security Auditing Service
+  chrony.service           loaded active running chrony, an NTP client/server
+  cron.service             loaded active running Regular background program processing daemon
+  dbus.service             loaded active running D-Bus System Message Bus
+  dhclient@eth0.service    loaded active running DHCP client on eth0
+  frr.service              loaded active running FRRouting
+  getty@tty1.service       loaded active running Getty on tty1
+  haveged.service          loaded active running Entropy Daemon based on the HAVEGE algorithm
+LOAD   = Reflects whether the unit definition was properly loaded.
+  netbird.service          loaded active running NetBird mesh network client
+  netplug.service          loaded active running Network cable hotplug management daemon
+  polkit.service           loaded active running Authorization Manager
+  rsyslog.service          loaded active running System Logging Service
+  ssh@default.service      loaded active running OpenBSD Secure Shell server
+SUB    = The low-level unit activation state, values depend on unit type.
+  systemd-journald.service loaded active running Journal Service
+  systemd-logind.service   loaded active running User Login Management
+  systemd-udevd.service    loaded active running Rule-based Manager for Device Events and Files
+  UNIT                     LOAD   ACTIVE SUB     DESCRIPTION
+  user@1002.service        loaded active running User Manager for UID 1002
+  vyos-commitd.service     loaded active running VyOS commit daemon
+  vyos-configd.service     loaded active running VyOS configuration daemon
+  vyos-hostsd.service      loaded active running VyOS DNS configuration keeper

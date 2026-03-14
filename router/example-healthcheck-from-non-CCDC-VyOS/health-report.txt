@@ -1,0 +1,30 @@
+== VyOS Router Health Check ==
+Timestamp: 20260314-090249
+
+== Basic Files ==
+✅ PASS: /config/config.boot exists
+== Interfaces ==
+✅ PASS: Interface eth0 is UP
+❌ FAIL: Interface eth1 does not exist
+== Routing ==
+✅ PASS: Default route exists
+== Reachability ==
+✅ PASS: Ping to 192.168.10.1 succeeded
+✅ PASS: Ping to 8.8.8.8 succeeded
+== DNS ==
+✅ PASS: DNS resolved google.com -> 2607:f8b0:4009:810::200e
+== SSH ==
+❌ FAIL: SSH appears enabled or listening
+== Telnet ==
+✅ PASS: Telnet is not listening on TCP 23
+== Optional Safety Checks ==
+⚠️ WARN: SSH configuration exists in config
+✅ PASS: No obvious suspicious service names found in running services
+== Summary ==
+Passes : 8
+Fails  : 2
+Warns  : 1
+
+Overall status: ATTENTION NEEDED
+
+[*] Created Health Check at ./healthcheck/20260314-090249

@@ -1,0 +1,4 @@
+lo               UNKNOWN        127.0.0.1/8 fe80::200:ff:fe00:0/64 ::1/128 
+eth0             UP             192.168.10.121/24 fe80::be24:11ff:fef8:cf8a/64 
+pim6reg@NONE     UNKNOWN        
+wt0              UNKNOWN        100.71.164.92/16 

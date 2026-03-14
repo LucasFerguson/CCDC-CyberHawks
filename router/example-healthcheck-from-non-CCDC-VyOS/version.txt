@@ -1,0 +1,20 @@
+Version:          VyOS 2026.03.09-0026-rolling
+Release train:    current
+Release flavor:   generic
+
+Built by:         autobuild@vyos.net
+Built on:         Mon 09 Mar 2026 00:27 UTC
+Build UUID:       834eecd2-208b-4429-9371-eb3d2b2a473a
+Build commit ID:  fbdce6466748fd
+
+Architecture:     x86_64
+Boot via:         livecd
+System type:      KVM guest
+Secure Boot:      n/a (BIOS)
+
+Hardware vendor:  QEMU
+Hardware model:   Standard PC (i440FX + PIIX, 1996)
+Hardware S/N:     
+Hardware UUID:    0c523766-af5e-467c-9267-2e29c31225b6
+
+Copyright:        VyOS maintainers and contributors
