@@ -19,6 +19,7 @@ for file in proc_files:
 
 pids.sort()
 
+
 def get_exe(pid):
     return cmd(f"sudo ls -l /proc/{pid}/exe").splitlines()[0].split(" -> ")[1]
 
