@@ -74,6 +74,7 @@ for service in base_services:
             diffs_found = True
             print(f"Service '{service}' extension differences:")
             print("\n".join(unified_diff(dropin_base_uniq, dropin_real_uniq, fromfile=f"Stored service {service} dropins/extensions", tofile=f"Real service {service} dropins/extensions", n=0)))
+            
 
         #     base_section_uniq = [section for section in dropin_dict_base if section not in dropin_dict_real]
         #     real_section_uniq = [section for section in dropin_dict_real if section not in dropin_dict_base]
