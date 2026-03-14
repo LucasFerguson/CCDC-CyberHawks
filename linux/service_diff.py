@@ -47,7 +47,8 @@ for service in base_services:
 
         if basecontent != realcontent: # service files not the same!
             print(f"\nSystem's service {service} configuration file is different than the one stored!")
-            print("\n".join(list(unified_diff(basecontent, realcontent, fromfile=base_path, tofile=confpath))))
+            # print("\n".join(list(unified_diff(basecontent, realcontent, fromfile=base_path, tofile=confpath))))
+            print("".join(unified_diff(basecontent, realcontent, fromfile=base_path, tofile=confpath, n=0)))
             diffs_found = True
         
         # Compare dropins (extension configurations) if present
