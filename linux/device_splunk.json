@@ -1,0 +1,38 @@
+{
+    "arch": "rhel",
+    "ipv4_addresses": [
+        "127.0.0.1/8",
+        "compeition_day_ip/cidr"
+    ],
+    "services": [
+        "splunkd"
+    ],
+    "ports": [
+        {
+            "port_no": 8000,
+            "process_name": "splunkd"
+        },
+        {
+            "port_no": 8089,
+            "process_name": "splunkd"
+        },
+        {
+            "port_no": 9997,
+            "process_name": "splunkd"
+        }
+    ],
+    "hashfile": "device_hashes",
+    "preserve_files": [
+        "/opt/splunk",
+        "/opt/splunk/etc",
+        "/opt/splunk/var",
+        "/etc/systemd/system/splunkd.service",
+        "/home/splunk",
+        "/root",
+        "/bin",
+        "/sbin",
+        "/var",
+        "/etc",
+        "/opt"
+    ]
+}
