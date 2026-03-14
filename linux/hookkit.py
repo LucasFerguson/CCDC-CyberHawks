@@ -8,7 +8,7 @@ def cmd(command):
         return ""
 
 # Brute force PIDs
-print("Search for hidden pids:")
+print("Search for hidden pids (will also display threads):")
 proc_files = cmd("sudo ls /proc").splitlines()
 pids = []
 for file in proc_files:
@@ -19,9 +19,17 @@ for file in proc_files:
 
 pids.sort()
 
+def get_exe(pid):
+    return cmd(f"sudo ls -l /proc/{pid}/exe").splitlines()[0].split(" -> ")[1]
+
 for brutepid in range(pids[0],pids[-1]):
     if brutepid not in pids:
         tryout = cmd(f"sudo file /proc/{brutepid}/stat")
         if "No such file or directory" not in tryout:
-            print("FOUND HIDDEN PID:", brutepid, cmd(f"sudo ls -l /proc/{brutepid}/exe"))
+            exe = get_exe(brutepid)
+            status = {line.split("\t")[0][:-1]:int(line.split("\t")[1]) for line in cmd(f"sudo cat /proc/{brutepid}/status | grep -E '^Tgid|^Pid'").splitlines() if line.strip()}
+            if status['Tgid'] != status['Pid']:
+                print(f"(thread) pid={brutepid}, exe={exe}, parent_exe={get_exe(status['Tgid'])}")
+            else:
+                print(f"HIDDEN PROCESS DETECTED!!!! PID={brutepid}, exe={exe}")
             # print(cmd(f"sudo ls /proc/{brutepid}"))
