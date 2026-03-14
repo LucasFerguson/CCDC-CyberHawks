@@ -1,0 +1,4 @@
+lo               UNKNOWN        00:00:00:00:00:00 <LOOPBACK,UP,LOWER_UP> 
+eth0             UP             bc:24:11:f8:cf:8a <BROADCAST,MULTICAST,UP,LOWER_UP> 
+pim6reg@NONE     UNKNOWN        <NOARP,UP,LOWER_UP> 
+wt0              UNKNOWN        <POINTOPOINT,NOARP,UP,LOWER_UP> 

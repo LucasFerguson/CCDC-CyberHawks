@@ -1,0 +1,21 @@
+Health Check Snapshot
+Timestamp: 20260314-090249
+
+Generated files:
+- config.boot.sha256
+- config-commands.txt
+- config-scripts.txt
+- enabled-services.txt
+- health-report.txt
+- interfaces.txt
+- ip-addr.txt
+- ip-link.txt
+- ip-route.txt
+- listening.txt
+- passwd.txt
+- ps.txt
+- routes.txt
+- running-services.txt
+- summary.txt
+- system-image.txt
+- version.txt

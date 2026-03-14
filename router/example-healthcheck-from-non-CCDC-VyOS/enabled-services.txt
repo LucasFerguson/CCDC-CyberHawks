@@ -1,0 +1,25 @@
+
+22 unit files listed.
+acpid.service                   enabled enabled
+atd.service                     enabled enabled
+atopacct.service                enabled enabled
+atop.service                    enabled enabled
+auditd.service                  enabled enabled
+cron.service                    enabled enabled
+e2scrub_reap.service            enabled enabled
+getty@.service                  enabled enabled
+haveged.service                 enabled enabled
+live-config.service             enabled enabled
+mdadm-shutdown.service          enabled enabled
+netbird.service                 enabled enabled
+nvmefc-boot-connections.service enabled enabled
+podman.service                  enabled enabled
+rsyslog.service                 enabled enabled
+systemd-pstore.service          enabled enabled
+UNIT FILE                       STATE   PRESET
+vyos-commitd.service            enabled enabled
+vyos-config-cloud-init.service  enabled enabled
+vyos-configd.service            enabled enabled
+vyos-grub-update.service        enabled enabled
+vyos-hostsd.service             enabled enabled
+vyos-router.service             enabled enabled
