@@ -25,31 +25,40 @@ DROPINS_EXT = ".dropins"
 DROPIN_SRCFILE_DELIM = " # src file: "
 
 def generate_dropin_fromfile(filepath, dropin_dictionary=None, is_summary_file=False):
-    if not dropin_dictionary:
-        dropin_dict = {}
-    else:
-        dropin_dict = dropin_dictionary 
+    # if not dropin_dictionary:
+    #     dropin_dict = {}
+    # else:
+    #     dropin_dict = dropin_dictionary 
     
-    dropin_confs = get_file_configurations(filepath)
-    curr_section = None
+    dropin_confs = get_file_configurations(filepath, keep_sections=False)
+    ret_dropin_confs = []
     for line in dropin_confs:
-        if line.startswith("["):
-            assert line.endswith("]"), "Error! Some weird configuration. this code doesn't handle yet...blame Ben :)"
-            section = line[1:-1]
-            if section not in dropin_dict:
-                dropin_dict[section] = []
-            curr_section = section
+        if is_summary_file:
+            assert DROPIN_SRCFILE_DELIM in line
+            delim_idx = line.index(DROPIN_SRCFILE_DELIM)
+            ret_dropin_confs.append([line[:delim_idx], line[delim_idx+len(DROPIN_SRCFILE_DELIM):]])    
         else:
-            assert curr_section, f"Error! Weird configuration, not listed under a [] section header! Filepath: {filepath}"
-            if is_summary_file:
-                assert DROPIN_SRCFILE_DELIM in line
-                delim_idx = line.index(DROPIN_SRCFILE_DELIM)
-                dropin_dict[section].append([line[:delim_idx], line[delim_idx+len(DROPIN_SRCFILE_DELIM):]])    
-            else:
-                dropin_dict[section].append([line, filepath])
-    
-    dropin_dict = {section:dropin_dict[section] for section in dropin_dict if dropin_dict[section]}
-    return dropin_dict
+            ret_dropin_confs.append([line, filepath])
+    return ret_dropin_confs
+    # dropin_confs = get_file_configurations(filepath)
+    # curr_section = None
+    # for line in dropin_confs:
+    #     if line.startswith("["):
+    #         assert line.endswith("]"), "Error! Some weird configuration. this code doesn't handle yet...blame Ben :)"
+    #         section = line[1:-1]
+    #         if section not in dropin_dict:
+    #             dropin_dict[section] = []
+    #         curr_section = section
+    #     else:
+    #         assert curr_section, f"Error! Weird configuration, not listed under a [] section header! Filepath: {filepath}"
+    #         if is_summary_file:
+    #             assert DROPIN_SRCFILE_DELIM in line
+    #             delim_idx = line.index(DROPIN_SRCFILE_DELIM)
+    #             dropin_dict[section].append([line[:delim_idx], line[delim_idx+len(DROPIN_SRCFILE_DELIM):]])    
+    #         else:
+    #             dropin_dict[section].append([line, filepath])
+    # dropin_dict = {section:dropin_dict[section] for section in dropin_dict if dropin_dict[section]}
+    # return dropin_dict
 
 # Generates a summary configuration file of all dropin configurations
 def generate_dropin_fromservice(service):
@@ -58,12 +67,14 @@ def generate_dropin_fromservice(service):
     if not dropin_files:
         return {}
 
-    dropin_dict = {}
-    
+    # dropin_dict = {}
+    dropin_confs = []
     # Compile dropin configurations
     for dropin_file in dropin_files.split(" "):
-        dropin_dict = generate_dropin_fromfile(dropin_file, dropin_dict)
-    return dropin_dict
+        dropin_confs.extend(generate_dropin_fromfile(dropin_file))
+        # dropin_dict = generate_dropin_fromfile(dropin_file, dropin_dict)
+    # return dropin_dict
+    return dropin_confs
 
 def main():
     # Read device JSON file
@@ -82,13 +93,20 @@ def main():
                 base_services.append(file.name)
     
     for service in base_services:
-        dropin_dict = generate_dropin_fromservice(service)
+        # dropin_dict = generate_dropin_fromservice(service)
+        # summ = []
+        # if dropin_dict:
+        #     for section in dropin_dict:
+        #         summ.append(f"[{section}]")
+        #         conf_strs = [f"{conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in dropin_dict[section]]
+        #         summ.extend(conf_strs)
+        #     with open(f'{BASEFOLDER}/{service}{DROPINS_EXT}', 'w') as file:
+        #         file.write("\n".join(summ))
+        dropin_confs = generate_dropin_fromservice(service)
         summ = []
-        if dropin_dict:
-            for section in dropin_dict:
-                summ.append(f"[{section}]")
-                conf_strs = [f"{conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in dropin_dict[section]]
-                summ.extend(conf_strs)
+        if dropin_confs:
+            conf_strs = [f"{conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in dropin_confs]
+            summ.extend(conf_strs)
             with open(f'{BASEFOLDER}/{service}{DROPINS_EXT}', 'w') as file:
                 file.write("\n".join(summ))
     
