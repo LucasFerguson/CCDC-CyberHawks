@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-OUT_DIR="/config/healthcheck"
+OUT_DIR="./healthcheck"
 TS="$(date +%Y%m%d-%H%M%S)"
 OUT="$OUT_DIR/$TS"
 mkdir -p "$OUT"
@@ -31,10 +31,6 @@ echo "===== CONFIG COMMANDS ====="
 run show configuration commands
 echo
 
-echo "===== LOG ====="
-run show log
-echo
-
 exit
 EOF
 
@@ -55,4 +51,25 @@ if [ -d /config/scripts ]; then
   ls -laR /config/scripts > "$OUT/config-scripts.txt"
 fi
 
-echo "[*] Done"
+# Create a simple manifest of generated files
+{
+  echo "Health Check Snapshot"
+  echo "Timestamp: $TS"
+  echo "Path: $OUT"
+  echo
+  echo "Generated files:"
+  find "$OUT" -maxdepth 1 -type f | sort | sed "s|$OUT/|- |"
+} > "$OUT/summary.txt"
+
+# Hash all generated files for quick integrity comparison
+(
+  cd "$OUT"
+  sha256sum *.txt *.sha256 2>/dev/null | sort > file-hashes.txt || true
+)
+
+# Update 'latest' symlink
+ln -sfn "$TS" "$OUT_DIR/latest"
+
+echo "[*] Created Health Check at $OUT"
+echo "[*] Summary file: $OUT/summary.txt"
+echo "[*] Hash manifest: $OUT/file-hashes.txt"

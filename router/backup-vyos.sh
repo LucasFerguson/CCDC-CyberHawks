@@ -2,7 +2,7 @@
 set -euo pipefail
 
 TS="$(date +%Y%m%d-%H%M%S)"
-DEST_BASE="/config/backups/$TS"
+DEST_BASE="./backups/$TS"
 mkdir -p "$DEST_BASE"
 
 cp /config/config.boot "$DEST_BASE/config.boot"
