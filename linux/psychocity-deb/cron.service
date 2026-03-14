@@ -9,6 +9,7 @@ ExecStart=/usr/sbin/cron -f -P $EXTRA_OPTS
 IgnoreSIGPIPE=false
 KillMode=process
 Restart=on-failure
+SyslogFacility=cron
 
 [Install]
 WantedBy=multi-user.target

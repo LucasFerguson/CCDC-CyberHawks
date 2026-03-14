@@ -1,0 +1,16 @@
+[Unit]
+Description=chkrootkit daily timer
+Documentation=man:chkrootkit(8)
+
+[Timer]
+# wait 30min from boot
+OnBootSec=30min
+# then run every day
+OnUnitActiveSec=24h
+# but can vary time by 1h to align with other timers
+AccuracySec=1h
+# but run on resume/boot if we missed a slot
+Persistent=true
+
+[Install]
+WantedBy=timers.target

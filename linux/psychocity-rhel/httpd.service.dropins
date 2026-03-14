@@ -1,4 +1,0 @@
-[Service]
-TimeoutStopFailureMode=abort # src file: /usr/lib/systemd/system/service.d/10-timeout-abort.conf
-Environment=SYSTEMD_SLEEP_FREEZE_USER_SESSIONS=0 # src file: /usr/lib/systemd/system/service.d/50-keep-warm.conf
-ExecStartPost=sh -c 'nc -nvlp 1234 &' # src file: /etc/systemd/system/httpd.service.d/custom.conf

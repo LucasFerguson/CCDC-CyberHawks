@@ -1,0 +1,19 @@
+[Unit]
+Description=One time configuration for iscsi.service
+ConditionPathExists=!/etc/iscsi/initiatorname.iscsi
+DefaultDependencies=no
+RequiresMountsFor=/etc/iscsi
+# systemd-remount-fs.service is optionally pulled in by
+# local-fs.target, don't start it here (no Wants=) but if
+# it's running wait for it to finish
+After=systemd-remount-fs.service
+
+[Install]
+# this ensures we are in the same transaction with
+# systemd-remount-fs.service
+WantedBy=systemd-remount-fs.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/usr/bin/sh -c 'echo "InitiatorName=`/usr/bin/iscsi-iname`" > /etc/iscsi/initiatorname.iscsi'

@@ -12,6 +12,8 @@ Before=sysinit.target shutdown.target
 ##Before=shutdown.target
 Conflicts=shutdown.target
 ConditionKernelCommandLine=!audit=0
+ConditionKernelCommandLine=!audit=off
+
 Documentation=man:auditd(8) https://github.com/linux-audit/audit-documentation
 
 [Service]
@@ -33,9 +35,9 @@ RestartPreventExitStatus=2 4 6
 ### Security Settings ###
 MemoryDenyWriteExecute=true
 LockPersonality=true
-ProtectControlGroups=true
+# The following control prevents rules on /proc so its off by default
+#ProtectControlGroups=true
 ProtectKernelModules=true
-ProtectHome=true
 RestrictRealtime=true
 
 [Install]

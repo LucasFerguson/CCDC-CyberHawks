@@ -52,57 +52,76 @@ for service in base_services:
             diffs_found = True
         
         # Compare dropins (extension configurations) if present
-        if service in dropin_files:
+
+        
+        dropin_real = generate_dropin_fromservice(service) # Get current service dropins
+
+        if service in dropin_files: # Get stored service dropins
             dropin_summfile = dropin_files[service]
-            dropin_dict_base = generate_dropin_fromfile(f"{BASEFOLDER}/{dropin_summfile}", is_summary_file=True)
-            dropin_dict_real = generate_dropin_fromservice(service)
+            # dropin_dict_base = generate_dropin_fromfile(f"{BASEFOLDER}/{dropin_summfile}", is_summary_file=True)
+            # dropin_dict_real = generate_dropin_fromservice(service)
+            dropin_base = generate_dropin_fromfile(f"{BASEFOLDER}/{dropin_summfile}", is_summary_file=True)
+        else:
+            dropin_base = []
+        
+        dropin_base_confs = [conf[0] for conf in dropin_base]
+        dropin_real_confs = [conf[0] for conf in dropin_real]
 
-            base_section_uniq = [section for section in dropin_dict_base if section not in dropin_dict_real]
-            real_section_uniq = [section for section in dropin_dict_real if section not in dropin_dict_base]
-            shared_sections = [section for section in dropin_dict_base if section not in base_section_uniq] # get sections shared by both real and base
+        dropin_base_uniq = [f"{dropin_base[i][0]}{DROPIN_SRCFILE_DELIM}{dropin_base[i][1]}" for i in range(len(dropin_base)) if dropin_base_confs[i] not in dropin_real_confs]
+        dropin_real_uniq = [f"{dropin_real[i][0]}{DROPIN_SRCFILE_DELIM}{dropin_real[i][1]}" for i in range(len(dropin_real)) if dropin_real_confs[i] not in dropin_base_confs]
 
-            if base_section_uniq:
-                diffs_found = True
-                print(f"Entire drop-in sections {base_section_uniq} in the stored {dropin_summfile} file that aren't present in service {service} running on this system!")
-                print("Configurations:")
-                for section in base_section_uniq:
-                    print(f"--- [{section}]")
-                    conf_strs = [f"--- {conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in dropin_dict_base[section]]
-                    print("\n".join(conf_strs))
-            if real_section_uniq:
-                diffs_found = True
-                print(f"Entire drop-in sections {real_section_uniq} in service {service} running on this system that aren't present in the stored {dropin_summfile} file!")
-                print("Configurations:")
-                for section in real_section_uniq:
-                    print(f"+++ [{section}]")
-                    conf_strs = [f"+++ {conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in dropin_dict_real[section]]
-                    print("\n".join(conf_strs))
-            if shared_sections:
-                for section in shared_sections:
-                    base_conflst = dropin_dict_base[section]
-                    real_conflst = dropin_dict_real[section]
-                    base_confs = [lst[0] for lst in base_conflst]
-                    real_confs = [lst[0] for lst in real_conflst]
-
-                    base_uniq = [lst for lst in base_conflst if lst[0] not in real_confs]
-                    real_uniq = [lst for lst in real_conflst if lst[0] not in base_confs]
-
-                    if base_uniq or real_uniq:
-                        diffs_found = True
-                        print(f"Service {service} differs!! (+++ are confs present on this system, --- are confs stored in ground truth files)")
-                        base_strs = [f"--- {conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in base_uniq]
-                        real_strs = [f"+++ {conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in real_uniq]
-                        
-                        print("\n".join([f"[{section}]"] + base_strs + real_strs))
-        elif (dropin_dict:=generate_dropin_fromservice(service)): # no dropins present in basefolder but they are present on the system!
+        if dropin_base_uniq or dropin_real_uniq:
             diffs_found = True
-            print(f"Service {service} dropins present on system but not present in grouth truth files!!")
-            summ = []
-            for section in dropin_dict:
-                summ.append(f"+++ [{section}]")
-                conf_strs = [f"+++ {conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in dropin_dict[section]]
-                summ.extend(conf_strs)
-            print("\n".join(summ))
+            print(f"Service '{service}' extension differences:")
+            print("\n".join(unified_diff(dropin_base_uniq, dropin_real_uniq, fromfile=f"Stored service {service} dropins/extensions", tofile=f"Real service {service} dropins/extensions", n=0)))
+            
+
+        #     base_section_uniq = [section for section in dropin_dict_base if section not in dropin_dict_real]
+        #     real_section_uniq = [section for section in dropin_dict_real if section not in dropin_dict_base]
+        #     shared_sections = [section for section in dropin_dict_base if section not in base_section_uniq] # get sections shared by both real and base
+
+        #     if base_section_uniq:
+        #         diffs_found = True
+        #         print(f"Entire drop-in sections {base_section_uniq} in the stored {dropin_summfile} file that aren't present in service {service} running on this system!")
+        #         print("Configurations:")
+        #         for section in base_section_uniq:
+        #             print(f"--- [{section}]")
+        #             conf_strs = [f"--- {conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in dropin_dict_base[section]]
+        #             print("\n".join(conf_strs))
+        #     if real_section_uniq:
+        #         diffs_found = True
+        #         print(f"Entire drop-in sections {real_section_uniq} in service {service} running on this system that aren't present in the stored {dropin_summfile} file!")
+        #         print("Configurations:")
+        #         for section in real_section_uniq:
+        #             print(f"+++ [{section}]")
+        #             conf_strs = [f"+++ {conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in dropin_dict_real[section]]
+        #             print("\n".join(conf_strs))
+        #     if shared_sections:
+        #         for section in shared_sections:
+        #             base_conflst = dropin_dict_base[section]
+        #             real_conflst = dropin_dict_real[section]
+        #             base_confs = [lst[0] for lst in base_conflst]
+        #             real_confs = [lst[0] for lst in real_conflst]
+
+        #             base_uniq = [lst for lst in base_conflst if lst[0] not in real_confs]
+        #             real_uniq = [lst for lst in real_conflst if lst[0] not in base_confs]
+
+        #             if base_uniq or real_uniq:
+        #                 diffs_found = True
+        #                 print(f"Service {service} differs!! (+++ are confs present on this system, --- are confs stored in ground truth files)")
+        #                 base_strs = [f"--- {conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in base_uniq]
+        #                 real_strs = [f"+++ {conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in real_uniq]
+                        
+        #                 print("\n".join([f"[{section}]"] + base_strs + real_strs))
+        # elif (dropin_dict:=generate_dropin_fromservice(service)): # no dropins present in basefolder but they are present on the system!
+        #     diffs_found = True
+        #     print(f"Service {service} dropins present on system but not present in grouth truth files!!")
+        #     summ = []
+        #     for section in dropin_dict:
+        #         summ.append(f"+++ [{section}]")
+        #         conf_strs = [f"+++ {conflst[0]}{DROPIN_SRCFILE_DELIM}{conflst[1]}" for conflst in dropin_dict[section]]
+        #         summ.extend(conf_strs)
+        #     print("\n".join(summ))
             
 
 if not diffs_found:

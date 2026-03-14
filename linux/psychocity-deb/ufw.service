@@ -9,8 +9,8 @@ After=local-fs.target
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/lib/ufw/ufw-init start quiet
-ExecStop=/lib/ufw/ufw-init stop
+ExecStart=/usr/lib/ufw/ufw-init start quiet
+ExecStop=/usr/lib/ufw/ufw-init stop
 
 [Install]
 WantedBy=multi-user.target

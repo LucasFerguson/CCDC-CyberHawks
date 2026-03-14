@@ -1,5 +1,7 @@
 [Unit]
 Description=Dispatcher daemon for systemd-networkd
+ConditionPathExistsGlob=|/etc/networkd-dispatcher/*/*
+ConditionPathExistsGlob=|/usr/lib/networkd-dispatcher/*/*
 
 [Service]
 Type=notify

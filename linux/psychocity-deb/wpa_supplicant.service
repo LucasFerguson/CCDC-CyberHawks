@@ -8,8 +8,11 @@ IgnoreOnIsolate=true
 [Service]
 Type=dbus
 BusName=fi.w1.wpa_supplicant1
-ExecStart=/sbin/wpa_supplicant -u -s -O /run/wpa_supplicant
+ExecStart=/usr/sbin/wpa_supplicant -u -s -O "DIR=/run/wpa_supplicant GROUP=netdev"
 ExecReload=/bin/kill -HUP $MAINPID
+Group=netdev
+RuntimeDirectory=wpa_supplicant
+RuntimeDirectoryMode=0750
 
 [Install]
 WantedBy=multi-user.target

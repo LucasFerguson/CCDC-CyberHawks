@@ -1,0 +1,36 @@
+[Unit]
+Description=System Security Services Daemon
+# SSSD must be running before we permit user sessions
+Before=systemd-user-sessions.service nss-user-lookup.target
+Wants=nss-user-lookup.target
+StartLimitIntervalSec=50s
+StartLimitBurst=5
+ConditionPathExists=|/etc/sssd/sssd.conf
+ConditionDirectoryNotEmpty=|/etc/sssd/conf.d/
+
+[Service]
+Environment=DEBUG_LOGGER=--logger=files
+EnvironmentFile=-/etc/sysconfig/sssd
+# '-H' is used with /etc/sssd to support use case where /etc/sssd is a symlink.
+# '-H' only allows following a command line argument itself, everything else encountered due to '-R' isn't followed.
+ExecStartPre=+-/bin/chown -f -R -H root:sssd /etc/sssd
+ExecStartPre=+-/bin/chmod -f -R g+r /etc/sssd
+ExecStartPre=+-/bin/chmod -f g+x /etc/sssd
+ExecStartPre=+-/bin/chmod -f g+x /etc/sssd/conf.d
+ExecStartPre=+-/bin/chmod -f g+x /etc/sssd/pki
+ExecStartPre=+-/bin/sh -c "/bin/chown -f -h sssd:sssd /var/lib/sss/db/*.ldb"
+ExecStartPre=+-/bin/chown -f -R -h sssd:sssd /var/lib/sss/gpo_cache
+ExecStartPre=+-/bin/sh -c "/bin/chown -f -h sssd:sssd /var/log/sssd/*.log*"
+ExecStart=/usr/bin/sssd -i ${DEBUG_LOGGER}
+Type=notify
+NotifyAccess=main
+Restart=on-abnormal
+CapabilityBoundingSet= CAP_SETGID CAP_SETUID CAP_DAC_READ_SEARCH
+SecureBits=noroot noroot-locked
+User=sssd
+Group=sssd
+# If service configured to be run under "root", uncomment "SupplementaryGroups"
+#SupplementaryGroups=sssd
+
+[Install]
+WantedBy=multi-user.target

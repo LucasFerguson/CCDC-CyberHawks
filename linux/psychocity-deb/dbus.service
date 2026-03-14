@@ -8,6 +8,8 @@ Wants=sysinit.target
 After=sysinit.target basic.target
 
 [Service]
+Type=notify
+NotifyAccess=main
 ExecStart=@/usr/bin/dbus-daemon @dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
 ExecReload=/usr/bin/dbus-send --print-reply --system --type=method_call --dest=org.freedesktop.DBus / org.freedesktop.DBus.ReloadConfig
 OOMScoreAdjust=-900

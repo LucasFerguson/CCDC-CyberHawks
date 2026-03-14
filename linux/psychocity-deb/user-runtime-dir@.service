@@ -10,13 +10,13 @@
 [Unit]
 Description=User Runtime Directory /run/user/%i
 Documentation=man:user@.service(5)
-After=systemd-user-sessions.service dbus.service
+After=dbus.service
 StopWhenUnneeded=yes
 IgnoreOnIsolate=yes
 
 [Service]
-ExecStart=/lib/systemd/systemd-user-runtime-dir start %i
-ExecStop=/lib/systemd/systemd-user-runtime-dir stop %i
+ExecStart=/usr/lib/systemd/systemd-user-runtime-dir start %i
+ExecStop=/usr/lib/systemd/systemd-user-runtime-dir stop %i
 Type=oneshot
 RemainAfterExit=yes
 Slice=user-%i.slice
