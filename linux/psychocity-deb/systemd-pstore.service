@@ -20,7 +20,7 @@ Wants=modprobe@efi_pstore.service
 
 [Service]
 Type=oneshot
-ExecStart=/lib/systemd/systemd-pstore
+ExecStart=/usr/lib/systemd/systemd-pstore
 RemainAfterExit=yes
 StateDirectory=systemd/pstore
 

@@ -1,0 +1,1 @@
+ExecStartPre=-/sbin/modprobe vmwgfx # src file: /usr/lib/systemd/system/open-vm-tools.service.d/desktop.conf

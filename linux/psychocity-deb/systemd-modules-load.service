@@ -14,7 +14,6 @@ DefaultDependencies=no
 Conflicts=shutdown.target
 Before=sysinit.target shutdown.target
 ConditionCapability=CAP_SYS_MODULE
-ConditionVirtualization=!container
 ConditionDirectoryNotEmpty=|/lib/modules-load.d
 ConditionDirectoryNotEmpty=|/usr/lib/modules-load.d
 ConditionDirectoryNotEmpty=|/usr/local/lib/modules-load.d
@@ -26,5 +25,5 @@ ConditionKernelCommandLine=|rd.modules-load
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/lib/systemd/systemd-modules-load
+ExecStart=/usr/lib/systemd/systemd-modules-load
 TimeoutSec=90s

@@ -13,5 +13,5 @@ Requires=systemd-fsckd.socket
 Before=shutdown.target
 
 [Service]
-ExecStart=/lib/systemd/systemd-fsckd
+ExecStart=/usr/lib/systemd/systemd-fsckd
 StandardOutput=journal+console

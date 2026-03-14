@@ -4,6 +4,7 @@ DefaultDependencies=no
 Before=sysinit.target
 After=local-fs.target
 After=systemd-journald-audit.socket
+After=systemd-sysctl.service
 RequiresMountsFor=/var/cache/apparmor
 AssertPathIsReadWrite=/sys/kernel/security/apparmor/.load
 ConditionSecurity=apparmor

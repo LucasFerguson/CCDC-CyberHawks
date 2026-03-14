@@ -18,8 +18,8 @@ Before=shutdown.target
 [Service]
 Environment=HOME=/root
 WorkingDirectory=-/root
-ExecStartPre=-/bin/plymouth --wait quit
-ExecStart=-/lib/systemd/systemd-sulogin-shell rescue
+ExecStartPre=-/usr/bin/plymouth --wait quit
+ExecStart=-/usr/lib/systemd/systemd-sulogin-shell rescue
 Type=idle
 StandardInput=tty-force
 StandardOutput=inherit

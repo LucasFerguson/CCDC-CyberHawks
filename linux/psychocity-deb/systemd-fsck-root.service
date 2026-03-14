@@ -17,9 +17,11 @@ Wants=systemd-fsckd.socket
 After=systemd-fsckd.socket
 ConditionPathIsReadWrite=!/
 ConditionPathExists=!/run/initramfs/fsck-root
+OnFailure=emergency.target
+OnFailureJobMode=replace-irreversibly
 
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/lib/systemd/systemd-fsck
-TimeoutSec=0
+ExecStart=/usr/lib/systemd/systemd-fsck
+TimeoutSec=infinity

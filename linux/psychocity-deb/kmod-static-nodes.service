@@ -10,11 +10,11 @@
 [Unit]
 Description=Create List of Static Device Nodes
 DefaultDependencies=no
-Before=sysinit.target systemd-tmpfiles-setup-dev.service
+Before=sysinit.target systemd-tmpfiles-setup-dev-early.service
 ConditionCapability=CAP_SYS_MODULE
 ConditionFileNotEmpty=/lib/modules/%v/modules.devname
 
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/bin/kmod static-nodes --format=tmpfiles --output=/run/tmpfiles.d/static-nodes.conf
+ExecStart=/usr/bin/kmod static-nodes --format=tmpfiles --output=/run/tmpfiles.d/static-nodes.conf
