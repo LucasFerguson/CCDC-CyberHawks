@@ -26,7 +26,7 @@
         "/opt/splunk",
         "/opt/splunk/etc",
         "/opt/splunk/var",
-        "/etc/systemd/system/Splunkd.service",
+        "/etc/systemd/system/splunkd.service",
         "/home/splunk",
         "/root",
         "/bin",
