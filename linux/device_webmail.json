@@ -21,6 +21,8 @@
     "hashfile": "device_hashes",
     "preserve_files": [
         "/home/sysadmin/",
+        "/etc/dovecot",
+        "/etc/postfix",
         "/root",
         "/bin",
         "/var",
