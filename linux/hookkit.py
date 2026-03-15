@@ -25,12 +25,26 @@ def get_exe(pid):
 
 for brutepid in range(pids[0],pids[-1]):
     if brutepid not in pids:
-        tryout = cmd(f"sudo file /proc/{brutepid}/stat")
-        if "No such file or directory" not in tryout:
+        # tryout = cmd(f"sudo file /proc/{brutepid}/stat")
+        try:
+            with open(f"/proc/{brutepid}/stat", 'rb') as file:
+                tmp = file.readline()
+                exists = True
+        except:        
+            exists = False
+        
+        # if "No such file or directory" not in tryout:
+        if exists:
             exe = get_exe(brutepid)
-            status = {line.split("\t")[0][:-1]:int(line.split("\t")[1]) for line in cmd(f"sudo cat /proc/{brutepid}/status | grep -E '^Tgid|^Pid'").splitlines() if line.strip()}
+            # status = {line.split("\t")[0][:-1]:int(line.split("\t")[1]) for line in cmd(f"sudo cat /proc/{brutepid}/status | grep -E '^Tgid|^Pid'").splitlines() if line.strip()}
+
+            with open(f"/proc/{brutepid}/status", 'r') as file:
+                status = {line.split("\t")[0][:-1]:int(line.split("\t")[1]) for line in file.read().splitlines() if line.strip().startswith("Tgid") or line.strip().startswith("Pid")}
+                # print([f"'{line}'" for line in file.read()])
+
+
             if status['Tgid'] != status['Pid']:
                 print(f"(thread) pid={brutepid}, exe={exe}, parent_exe={get_exe(status['Tgid'])}")
             else:
                 print(f"HIDDEN PROCESS DETECTED!!!! PID={brutepid}, exe={exe}")
-            # print(cmd(f"sudo ls /proc/{brutepid}"))
+
