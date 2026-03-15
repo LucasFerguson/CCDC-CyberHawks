@@ -19,11 +19,16 @@ cat active_suid.tmp | while read -r line; do echo "$(basename "$line")"; done > 
 cat bad-suid.txt >> suid_lst.tmp
 
 echo "Bad Suid:"
-cat suid_lst.tmp | sort | uniq -d | while read -r line; echo "Killing bad suid $line"; sudo chmod u-s "$(grep -E "$line\$" active_suid.tmp)"; done;
+cat suid_lst.tmp | sort | uniq -d | while read -r line; do
+    echo "Killing bad suid $line";
+    sudo chmod u-s "$(grep -E "$line\$" active_suid.tmp)";
+done
 
 cat active_sgid.tmp | while read -r line; do echo "$(basename "$line")"; done > sgid_lst.tmp
 cat bad-suid.txt >> sgid_lst.tmp
 
 echo ""
 echo "Bad Sgid:"
-cat sgid_lst.tmp | sort | uniq -d | while read -r line; echo "Killing bad sgid $line"; sudo chmod u-g "$(grep -E "$line\$" active_sgid.tmp)"; done;
+cat sgid_lst.tmp | sort | uniq -d | while read -r line; do echo "Killing bad sgid $line";
+    sudo chmod u-g "$(grep -E "$line\$" active_sgid.tmp)";
+done

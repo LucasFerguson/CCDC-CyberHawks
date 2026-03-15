@@ -1,0 +1,10 @@
+gdb
+gzip
+node
+perl
+php
+python
+python2
+python3
+ruby
+tclsh
