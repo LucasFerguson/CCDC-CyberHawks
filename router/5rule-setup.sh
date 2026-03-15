@@ -1,5 +1,8 @@
 #!/bin/vbash
 
+# NOTE: This is for version VyOS 1.4
+# Created 2026-03-14 - Lucas
+
 if [ "$(id -g -n)" != "vyattacfg" ]; then
     exec sg vyattacfg -c "/bin/vbash $(readlink -f "$0") $@"
 fi
