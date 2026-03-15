@@ -1,42 +1,38 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/vbash
+
+if [ "$(id -g -n)" != "vyattacfg" ]; then
+    exec sg vyattacfg -c "/bin/vbash $(readlink -f "$0") $@"
+fi
+
+source /opt/vyatta/etc/functions/script-template
+set -e
 
 echo "[*] Hardening VyOS services"
 
 configure
 
-# Disable SSH by removing its config entirely
-# delete service ssh
-
-# Disable SNMP by removing its config entirely
+delete service ssh
 delete service snmp
-
-# Optional: disable LLDP if you do not want device discovery chatter
 delete service lldp
-
-# Optional: disable config-sync if it exists
 delete service config-sync
-
-# Optional: disable console-server if it exists
 delete service console-server
 
 commit-confirm 5
 save
 
-echo "[*] Verifying local listeners"
+echo "[*] Verifying listeners"
 run ss -lntup || true
 
-echo "[*] Checking TCP 22 / TCP 23"
-if run ss -lnt | grep -Eq '(^|[[:space:]])LISTEN.*:22[[:space:]]'; then
-  echo "[!] SSH still appears to be listening on :22"
+if run ss -lnt | grep -Eq '(^|[[:space:]])LISTEN.*:22([[:space:]]|$)'; then
+    echo "[!] SSH still appears to be listening on :22"
 else
-  echo "[+] SSH not listening on :22"
+    echo "[+] SSH not listening on :22"
 fi
 
-if run ss -lnt | grep -Eq '(^|[[:space:]])LISTEN.*:23[[:space:]]'; then
-  echo "[!] Something is listening on :23"
+if run ss -lnt | grep -Eq '(^|[[:space:]])LISTEN.*:23([[:space:]]|$)'; then
+    echo "[!] Something is listening on :23"
 else
-  echo "[+] Nothing listening on :23"
+    echo "[+] Nothing listening on :23"
 fi
 
-echo "[*] Done"
+exit
