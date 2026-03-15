@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Cooking ptrace..."
+echo "== PTRACE COOKER =="
 sudo echo "3" > /proc/sys/kernel/yama/ptrace_scope
 sudo setsebool -P deny_ptrace on
 sudo sysctl -w kernel.yama.ptrace_scope=3

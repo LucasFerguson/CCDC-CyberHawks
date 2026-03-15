@@ -1,6 +1,11 @@
 #!/bin/bash
 # Shared Object Userland Rootkits (LD_PRELOAD/LD_LIBRARY_PATH/LD_AUDIT)
 
+function echol(){
+    echo "";
+    echo "$@";
+}
+
 # Search for bad env var sudoers entries for all users
 echo "Users with sudoers settings with LD_PRELOAD|LD_LIBRARY_PATH|LD_AUDIT:" 
 for user in $(getent passwd | cut -d: -f1); do sudo -U "$user" -l 2>/dev/null | grep -Eq "LD_PRELOAD|LD_LIBRARY_PATH|LD_AUDIT" && echo "$user"; done
@@ -31,3 +36,6 @@ strings /etc/ld.so.cache | rg "\.so" | rg -v "/usr/lib64/|/lib/|/usr/lib/|/lib64
 echo ""
 echo "Print all folders checked for shared objects system-wide (found in ld.so.conf and ld.so.conf.d):"
 rg -v "^#" /etc/ld.so.conf*
+
+echol "Shared objects that are checked before anything else (/etc/ld.so.preload): "
+rg -v "^#" /etc/ld.so.preload
