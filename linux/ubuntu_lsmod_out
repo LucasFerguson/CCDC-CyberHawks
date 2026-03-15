@@ -1,0 +1,109 @@
+Module                  Size  Used by
+mptcp_diag             16384  0
+xsk_diag               12288  0
+vsock_diag             12288  0
+tcp_diag               12288  0
+udp_diag               12288  0
+raw_diag               12288  0
+inet_diag              32768  4 tcp_diag,mptcp_diag,raw_diag,udp_diag
+unix_diag              12288  0
+af_packet_diag         12288  0
+netlink_diag           12288  0
+isofs                  61440  2
+snd_seq_dummy          12288  0
+snd_hrtimer            12288  1
+xt_MASQUERADE          16384  1
+bridge                425984  0
+stp                    12288  1 bridge
+llc                    16384  2 bridge,stp
+nft_masq               12288  2
+nft_ct                 24576  6
+xt_conntrack           12288  2
+xt_set                 20480  0
+ip_set                 61440  1 xt_set
+nft_chain_nat          12288  7
+nf_nat                 61440  3 nft_masq,nft_chain_nat,xt_MASQUERADE
+nf_conntrack          192512  5 xt_conntrack,nf_nat,nft_ct,nft_masq,xt_MASQUERADE
+nf_defrag_ipv6         24576  1 nf_conntrack
+nf_defrag_ipv4         12288  1 nf_conntrack
+wireguard             118784  0
+xt_addrtype            12288  4
+nft_compat             20480  7
+curve25519_x86_64      36864  1 wireguard
+nf_tables             385024  124 nft_ct,nft_compat,nft_masq,nft_chain_nat
+libcurve25519_generic    49152  2 curve25519_x86_64,wireguard
+ip6_udp_tunnel         16384  1 wireguard
+udp_tunnel             32768  1 wireguard
+xfrm_user              65536  1
+xfrm_algo              16384  1 xfrm_user
+overlay               221184  0
+intel_rapl_msr         20480  0
+intel_rapl_common      53248  1 intel_rapl_msr
+intel_uncore_frequency_common    20480  0
+intel_pmc_core        135168  0
+pmt_telemetry          16384  1 intel_pmc_core
+pmt_discovery          20480  1 pmt_telemetry
+pmt_class              20480  2 pmt_telemetry,pmt_discovery
+intel_pmc_ssram_telemetry    16384  1 intel_pmc_core
+intel_vsec             24576  2 intel_pmc_ssram_telemetry,pmt_telemetry
+snd_ens1371            40960  1
+polyval_clmulni        12288  0
+snd_ac97_codec        196608  1 snd_ens1371
+ghash_clmulni_intel    12288  0
+aesni_intel            98304  0
+gameport               20480  1 snd_ens1371
+vmw_balloon            28672  0
+ac97_bus               12288  1 snd_ac97_codec
+snd_pcm               200704  2 snd_ac97_codec,snd_ens1371
+rapl                   20480  0
+snd_seq_midi           24576  0
+snd_seq_midi_event     16384  1 snd_seq_midi
+snd_rawmidi            57344  2 snd_seq_midi,snd_ens1371
+snd_seq               122880  9 snd_seq_midi,snd_seq_midi_event,snd_seq_dummy
+qrtr                   53248  2
+snd_seq_device         16384  3 snd_seq,snd_seq_midi,snd_rawmidi
+snd_timer              53248  3 snd_seq,snd_hrtimer,snd_pcm
+snd                   143360  11 snd_seq,snd_seq_device,snd_timer,snd_ac97_codec,snd_pcm,snd_rawmidi,snd_ens1371
+soundcore              16384  1 snd
+i2c_piix4              32768  0
+i2c_smbus              20480  1 i2c_piix4
+vsock_loopback         12288  0
+vmw_vsock_virtio_transport_common    57344  1 vsock_loopback
+joydev                 32768  0
+input_leds             12288  0
+vmw_vsock_vmci_transport    53248  2
+vsock                  65536  8 vmw_vsock_virtio_transport_common,vsock_loopback,vsock_diag,vmw_vsock_vmci_transport
+mac_hid                12288  0
+serio_raw              20480  0
+vmw_vmci              106496  2 vmw_balloon,vmw_vsock_vmci_transport
+binfmt_misc            24576  1
+sch_fq_codel           24576  3
+vmwgfx                471040  5
+drm_ttm_helper         16384  2 vmwgfx
+ttm                   126976  2 vmwgfx,drm_ttm_helper
+msr                    12288  0
+parport_pc             53248  0
+ppdev                  24576  0
+lp                     32768  0
+efi_pstore             12288  0
+parport                73728  3 parport_pc,lp,ppdev
+nfnetlink              20480  6 nft_compat,nf_tables,ip_set
+dmi_sysfs              20480  0
+ip_tables              32768  0
+x_tables               65536  6 xt_conntrack,nft_compat,xt_addrtype,xt_set,ip_tables,xt_MASQUERADE
+autofs4                57344  2
+hid_generic            12288  0
+vga16fb                32768  0
+psmouse               217088  0
+vgastate               20480  1 vga16fb
+usbhid                 77824  0
+hid                   262144  2 usbhid,hid_generic
+mptspi                 24576  1
+mptscsih               49152  1 mptspi
+ahci                   49152  2
+mptbase               122880  2 mptspi,mptscsih
+scsi_transport_spi     40960  1 mptspi
+libahci                53248  1 ahci
+e1000                 180224  0
+pata_acpi              12288  0
+floppy                135168  0

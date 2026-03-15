@@ -1,0 +1,31 @@
+{
+    "arch": "rhel",
+    "ipv4_addresses": [ 
+        "127.0.0.1/8",
+        "compeition_day_ip/cidr"
+    ],
+    "services": [
+        "httpd"
+    ],
+    "ports": [
+        {
+            "port_no": 80,
+            "process_name": "httpd"
+        },
+        {
+            "port_no": 443,
+            "process_name": "httpd"
+        }
+    ],
+    "hashfile": "device_hashes",
+    "preserve_files": [
+        "/home/sysadmin",
+        "/var/www/html",
+        "/root",
+        "/bin",
+        "/var",
+        "/sbin",
+        "/opt",
+        "/etc"
+    ]
+}

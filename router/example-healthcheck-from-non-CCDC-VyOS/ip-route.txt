@@ -1,0 +1,19 @@
+default nhid 8 via 192.168.10.1 dev eth0 proto static metric 20 
+100.71.0.0/16 dev wt0 proto kernel scope link src 100.71.164.92 
+192.168.10.0/24 dev eth0 proto kernel scope link src 192.168.10.121 
+local 100.71.164.92 dev wt0 table local proto kernel scope host src 100.71.164.92 
+broadcast 100.71.255.255 dev wt0 table local proto kernel scope link src 100.71.164.92 
+local 127.0.0.0/8 dev lo table local proto kernel scope host src 127.0.0.1 
+local 127.0.0.1 dev lo table local proto kernel scope host src 127.0.0.1 
+broadcast 127.255.255.255 dev lo table local proto kernel scope link src 127.0.0.1 
+local 192.168.10.121 dev eth0 table local proto kernel scope host src 192.168.10.121 
+broadcast 192.168.10.255 dev eth0 table local proto kernel scope link src 192.168.10.121 
+fe80::/64 dev lo proto kernel metric 256 pref medium
+fe80::/64 dev eth0 proto kernel metric 256 pref medium
+local ::1 dev lo table local proto kernel metric 0 pref medium
+anycast fe80:: dev lo table local proto kernel metric 0 pref medium
+anycast fe80:: dev eth0 table local proto kernel metric 0 pref medium
+local fe80::200:ff:fe00:0 dev lo table local proto kernel metric 0 pref medium
+local fe80::be24:11ff:fef8:cf8a dev eth0 table local proto kernel metric 0 pref medium
+multicast ff00::/8 dev eth0 table local proto kernel metric 256 pref medium
+multicast ff00::/8 dev wt0 table local proto kernel metric 256 pref medium

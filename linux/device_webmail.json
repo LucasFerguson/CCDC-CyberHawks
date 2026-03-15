@@ -1,0 +1,33 @@
+{
+    "arch": "rhel",
+    "ipv4_addresses": [ 
+        "127.0.0.1/8",
+        "compeition_day_ip/cidr"
+    ],
+    "services": [
+        "postfix",
+        "dovecot"
+    ],
+    "ports": [
+        {
+            "port_no": 110,
+            "process_name": "dovecot"
+        },
+        {
+            "port_no": 25,
+            "process_name": "postfix"
+        }
+    ],
+    "hashfile": "device_hashes",
+    "preserve_files": [
+        "/home/sysadmin/",
+        "/etc/dovecot",
+        "/etc/postfix",
+        "/root",
+        "/bin",
+        "/var",
+        "/sbin",
+        "/opt",
+        "/etc"
+    ]
+}

@@ -1,0 +1,6 @@
+/config/scripts:
+total 1
+drwxrwsr-x 2 root vyattacfg  88 Mar  9 00:27 .
+drwxrwsr-x 1 root vyattacfg 140 Mar 14 08:09 ..
+-rwxr-xr-x 1 root vyattacfg 230 Mar  9 00:27 vyos-postconfig-bootup.script
+-rwxr-xr-x 1 root vyattacfg 225 Mar  9 00:27 vyos-preconfig-bootup.script

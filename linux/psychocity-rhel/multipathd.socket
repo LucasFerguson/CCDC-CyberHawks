@@ -1,0 +1,16 @@
+[Unit]
+Description=multipathd control socket
+DefaultDependencies=no
+ConditionPathExists=/etc/multipath.conf
+ConditionKernelCommandLine=!nompath
+ConditionKernelCommandLine=!multipath=off
+ConditionVirtualization=!container
+Before=sockets.target
+
+[Socket]
+ListenStream=@/org/kernel/linux/storage/multipathd
+
+[Install]
+# Socket activation for multipathd is disabled by default.
+# Activate it here if you find it useful.
+# WantedBy=sockets.target

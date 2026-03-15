@@ -1,0 +1,11 @@
+[Unit]
+Description=ABRT coredumpctl message creator
+After=abrtd.service
+Requisite=abrtd.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/abrt-dump-journal-core -D -T -f -e
+
+[Install]
+WantedBy=multi-user.target

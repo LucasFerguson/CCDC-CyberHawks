@@ -1,0 +1,27 @@
+[Unit]
+Description=SSSD Kerberos Cache Manager
+Documentation=man:sssd-kcm(5)
+Requires=sssd-kcm.socket
+After=sssd-kcm.socket
+
+[Install]
+Also=sssd-kcm.socket
+
+[Service]
+Environment=DEBUG_LOGGER=--logger=files
+# '-H' is used with /etc/sssd to support use case where /etc/sssd is a symlink.
+# '-H' only allows following a command line argument itself, everything else encountered due to '-R' isn't followed.
+ExecStartPre=+-/bin/chown -f -R -H root:sssd /etc/sssd
+ExecStartPre=+-/bin/chmod -f -R g+r /etc/sssd
+ExecStartPre=+-/bin/chmod -f g+x /etc/sssd
+ExecStartPre=+-/bin/chmod -f g+x /etc/sssd/conf.d
+ExecStartPre=+-/bin/chmod -f g+x /etc/sssd/pki
+ExecStartPre=+-/bin/sh -c "/bin/chown -f -h sssd:sssd /var/lib/sss/secrets/*.ldb"
+ExecStartPre=+-/bin/sh -c "/bin/chown -f -h sssd:sssd /var/log/sssd/sssd_kcm.log*"
+ExecStart=/usr/libexec/sssd/sssd_kcm ${DEBUG_LOGGER}
+CapabilityBoundingSet= CAP_DAC_READ_SEARCH CAP_SETGID CAP_SETUID
+SecureBits=noroot noroot-locked
+User=sssd
+Group=sssd
+# If service configured to be run under "root", uncomment "SupplementaryGroups"
+#SupplementaryGroups=sssd

@@ -1,0 +1,28 @@
+{
+    "arch": "choose deb or rhel",
+    "ipv4_addresses": [ 
+        "127.0.0.1/8",
+        "compeition_day_ip/cidr"
+    ],
+    "services": [
+        "myservice"
+    ],
+    "ports": [
+        {
+            "port_no": 1234,
+            "process_name": "name of process running on port 1234"
+        }
+    ],
+    "hashfile": "device_hashes",
+    "preserve_files": [
+        "/home/myuser/myimportantfile",
+        "/somewhere/myimportantservicefolder",
+        "/home/myuser",
+        "/root",
+        "/bin",
+        "/var",
+        "/sbin",
+        "/opt",
+        "/etc"
+    ]
+}

@@ -1,0 +1,69 @@
+_apt:x:42:65534::/nonexistent:/usr/sbin/nologin
+arpwatch:x:108:115:ARP Watcher,,,:/var/lib/arpwatch:/bin/sh
+avahi:x:121:131:Avahi mDNS daemon,,,:/run/avahi-daemon:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+_chrony:x:114:123:Chrony daemon,,,:/var/lib/chrony:/usr/sbin/nologin
+conservr:x:107:20::/etc/conserver:/usr/sbin/nologin
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+Debian-snmp:x:116:125::/var/lib/snmp:/bin/false
+_dnsdist:x:117:126::/nonexistent:/usr/sbin/nologin
+frr:x:109:117:Frr routing suite,,,:/nonexistent:/usr/sbin/nologin
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+haproxy:x:115:124::/var/lib/haproxy:/usr/sbin/nologin
+iperf3:x:113:121::/nonexistent:/usr/sbin/nologin
+irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin
+_kea:x:101:109:Kea DHCP User,,,:/var/lib/kea:/bin/false
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+_lldpd:x:118:127::/run/lldpd:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+messagebus:x:104:112::/nonexistent:/usr/sbin/nologin
+minion:x:124:102:salt minion user,,,:/nonexistent:/bin/vbash
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+node_exporter:x:126:134::/nonexistent:/bin/false
+ocserv:x:110:118::/run/ocserv:/usr/sbin/nologin
+openvpn:x:125:133::/nonexistent:/usr/sbin/nologin
+owamp:x:119:129::/var/lib/owamp:/usr/sbin/nologin
+pdns:x:111:119:PowerDNS,,,:/var/spool/powerdns:/bin/false
+polkitd:x:993:993:polkit:/nonexistent:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/bin/sh
+radius_priv_user:x:1001:1001:RADIUS mapped user at privilege level admin,,,:/home/radius_priv_user:/sbin/radius_shell
+radius_user:x:1000:1001:RADIUS mapped user at privilege level operator,,,:/home/radius_user:/sbin/radius_shell
+root:x:0:0:root:/root:/bin/bash
+salt:x:997:997:Salt:/opt/saltstack/salt:/usr/sbin/nologin
+sshd:x:123:65534::/run/sshd:/usr/sbin/nologin
+sstpc:x:120:130:Secure Socket Tunneling Protocol (SSTP) Client,,,:/run/sstpc/:/bin/false
+strongswan:x:100:65534::/var/lib/strongswan:/usr/sbin/nologin
+stunnel4:x:994:994:stunnel service system account:/var/run/stunnel4:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+systemd-network:x:998:998:systemd Network Management:/:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+tacacs0:x:900:1000:TACACS+ mapped user at privilege level 0,,,:/nonexistent:/bin/vbash
+tacacs10:x:910:1000:TACACS+ mapped user at privilege level 10,,,:/nonexistent:/bin/vbash
+tacacs11:x:911:1000:TACACS+ mapped user at privilege level 11,,,:/nonexistent:/bin/vbash
+tacacs12:x:912:1000:TACACS+ mapped user at privilege level 12,,,:/nonexistent:/bin/vbash
+tacacs13:x:913:1000:TACACS+ mapped user at privilege level 13,,,:/nonexistent:/bin/vbash
+tacacs14:x:914:1000:TACACS+ mapped user at privilege level 14,,,:/nonexistent:/bin/vbash
+tacacs15:x:915:1000:TACACS+ mapped user at privilege level 15,,,:/nonexistent:/bin/vbash
+tacacs1:x:901:1000:TACACS+ mapped user at privilege level 1,,,:/nonexistent:/bin/vbash
+tacacs2:x:902:1000:TACACS+ mapped user at privilege level 2,,,:/nonexistent:/bin/vbash
+tacacs3:x:903:1000:TACACS+ mapped user at privilege level 3,,,:/nonexistent:/bin/vbash
+tacacs4:x:904:1000:TACACS+ mapped user at privilege level 4,,,:/nonexistent:/bin/vbash
+tacacs5:x:905:1000:TACACS+ mapped user at privilege level 5,,,:/nonexistent:/bin/vbash
+tacacs6:x:906:1000:TACACS+ mapped user at privilege level 6,,,:/nonexistent:/bin/vbash
+tacacs7:x:907:1000:TACACS+ mapped user at privilege level 7,,,:/nonexistent:/bin/vbash
+tacacs8:x:908:1000:TACACS+ mapped user at privilege level 8,,,:/nonexistent:/bin/vbash
+tacacs9:x:909:1000:TACACS+ mapped user at privilege level 9,,,:/nonexistent:/bin/vbash
+tcpdump:x:112:120::/nonexistent:/usr/sbin/nologin
+telegraf:x:996:996::/etc/telegraf:/bin/false
+tftp:x:105:113:tftp daemon,,,:/srv/tftp:/usr/sbin/nologin
+tss:x:106:114:TPM software stack,,,:/var/lib/tpm:/bin/false
+twamp:x:122:132::/var/lib/twamp:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+uuidd:x:103:111::/run/uuidd:/usr/sbin/nologin
+vyos:x:1002:100::/home/vyos:/bin/vbash
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+zabbix:x:102:110::/nonexistent:/usr/sbin/nologin

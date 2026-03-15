@@ -1,0 +1,120 @@
+UID          PID    PPID  C STIME TTY          TIME CMD
+_chrony     1654       1  0 Mar11 ?        00:00:00 /usr/sbin/chronyd -F 1 -f /run/chrony/chrony.conf
+_chrony     1655    1654  0 Mar11 ?        00:00:00 /usr/sbin/chronyd -F 1 -f /run/chrony/chrony.conf
+daemon       756       1  0 Mar11 ?        00:00:00 /usr/sbin/atd -f
+frr         1188       1  0 Mar11 ?        00:00:02 /usr/lib/frr/mgmtd -d -F traditional --daemon -A 127.0.0.1
+frr         1191       1  0 Mar11 ?        00:00:23 /usr/lib/frr/zebra -d -F traditional --daemon -A 127.0.0.1 -s 90000000
+frr         1196       1  0 Mar11 ?        00:00:02 /usr/lib/frr/bfdd -d -F traditional --daemon -A 127.0.0.1
+frr         1199       1  0 Mar11 ?        00:00:02 /usr/lib/frr/bgpd -d -F traditional --daemon -A 127.0.0.1 -M rpki
+frr         1206       1  0 Mar11 ?        00:00:02 /usr/lib/frr/ripd -d -F traditional --daemon -A 127.0.0.1
+frr         1209       1  0 Mar11 ?        00:00:02 /usr/lib/frr/ripngd -d -F traditional --daemon -A ::1
+frr         1212       1  0 Mar11 ?        00:00:02 /usr/lib/frr/ospfd -d -F traditional --daemon -A 127.0.0.1
+frr         1215       1  0 Mar11 ?        00:00:02 /usr/lib/frr/ospf6d -d -F traditional --daemon -A ::1
+frr         1218       1  0 Mar11 ?        00:00:02 /usr/lib/frr/isisd -d -F traditional --daemon -A 127.0.0.1
+frr         1221       1  0 Mar11 ?        00:00:02 /usr/lib/frr/babeld -d -F traditional --daemon -A 127.0.0.1
+frr         1224       1  0 Mar11 ?        00:00:03 /usr/lib/frr/pim6d -d -F traditional --daemon -A ::1
+frr         1231       1  0 Mar11 ?        00:00:00 /usr/lib/frr/ldpd -L -u frr -g frr
+frr         1232       1  0 Mar11 ?        00:00:00 /usr/lib/frr/ldpd -E -u frr -g frr
+frr         1233       1  0 Mar11 ?        00:00:02 /usr/lib/frr/ldpd -d -F traditional --daemon -A 127.0.0.1
+frr         1238       1  0 Mar11 ?        00:00:16 /usr/lib/frr/nhrpd -d -F traditional --daemon -A 127.0.0.1
+frr         1244       1  0 Mar11 ?        00:00:02 /usr/lib/frr/staticd -d -F traditional --daemon -A 127.0.0.1
+frr         1247       1  0 Mar11 ?        00:00:02 /usr/lib/frr/fabricd -d -F traditional --daemon -A 127.0.0.1
+message+     746       1  0 Mar11 ?        00:00:00 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+polkitd    70274       1  0 07:05 ?        00:00:00 /usr/lib/polkit-1/polkitd --no-debug
+root         100       2  0 Mar11 ?        00:00:00 [kworker/R-ata_s]
+root           1       0  0 Mar11 ?        00:00:23 /sbin/init components nopersistence noautologin nonetworking
+root         101       2  0 Mar11 ?        00:00:00 [scsi_eh_0]
+root         102       2  0 Mar11 ?        00:00:00 [kworker/R-scsi_]
+root         103       2  0 Mar11 ?        00:00:00 [scsi_eh_1]
+root         105       2  0 Mar11 ?        00:00:00 [kworker/R-scsi_]
+root        1167       1  0 Mar11 ?        00:02:36 /usr/lib/frr/watchfrr -d mgmtd zebra bfdd bgpd ripd ripngd ospfd ospf6d isisd babeld pim6d ldpd nhrpd staticd fabricd
+root          12       2  0 Mar11 ?        00:00:00 [kworker/R-mm_pe]
+root          13       2  0 Mar11 ?        00:00:00 [rcu_tasks_trace_kthread]
+root          14       2  0 Mar11 ?        00:00:01 [ksoftirqd/0]
+root        1512       1  0 Mar11 ?        00:00:09 /usr/sbin/rsyslogd -n -iNONE -f /run/rsyslog/rsyslog.conf
+root          15       2  0 Mar11 ?        00:00:06 [rcu_sched]
+root          16       2  0 Mar11 ?        00:00:00 [migration/0]
+root          17       2  0 Mar11 ?        00:00:00 [idle_inject/0]
+root          18       2  0 Mar11 ?        00:00:00 [cpuhp/0]
+root        1861       1  0 Mar11 tty1     00:00:00 /bin/login -p --
+root          19       2  0 Mar11 ?        00:00:00 [kdevtmpfs]
+root        1930       1  0 Mar11 ?        00:00:00 /sbin/netplugd -c /etc/netplug/netplugd.conf -p /run/netplugd.pid
+root           2       0  0 Mar11 ?        00:00:00 [kthreadd]
+root          20       2  0 Mar11 ?        00:00:00 [kworker/R-inet_]
+root          21       2  0 Mar11 ?        00:00:00 [kauditd]
+root          22       2  0 Mar11 ?        00:00:00 [khungtaskd]
+root          23       2  0 Mar11 ?        00:00:00 [oom_reaper]
+root          25       2  0 Mar11 ?        00:00:00 [kworker/R-write]
+root          26       2  0 Mar11 ?        00:00:04 [kcompactd0]
+root          27       2  0 Mar11 ?        00:00:00 [ksmd]
+root          28       2  0 Mar11 ?        00:00:00 [khugepaged]
+root          29       2  0 Mar11 ?        00:00:00 [kworker/R-kinte]
+root          30       2  0 Mar11 ?        00:00:00 [kworker/R-kbloc]
+root         302       1  0 Mar11 ?        00:00:00 /lib/systemd/systemd-journald
+root         310       1  0 Mar11 ?        00:00:01 /usr/bin/python3 -u /usr/libexec/vyos/services/vyos-commitd
+root          31       2  0 Mar11 ?        00:00:00 [kworker/R-md]
+root         312       1  0 Mar11 ?        00:00:02 /usr/bin/python3 -u /usr/libexec/vyos/services/vyos-configd
+root         313       1  0 Mar11 ?        00:00:00 /usr/bin/python3 -u /usr/libexec/vyos/services/vyos-hostsd
+root         319       1  0 Mar11 ?        00:00:00 /lib/systemd/systemd-udevd
+root           3       2  0 Mar11 ?        00:00:00 [pool_workqueue_release]
+root          32       2  0 Mar11 ?        00:00:00 [kworker/R-md_bi]
+root          33       2  0 Mar11 ?        00:00:00 [kworker/R-edac-]
+root          34       2  0 Mar11 ?        00:00:00 [kworker/R-devfr]
+root        3445       1  0 00:00 ?        00:00:01 /usr/bin/atop -w /var/log/atop/atop.log 600
+root          35       2  0 Mar11 ?        00:00:00 [watchdogd]
+root         354       1  0 Mar11 ?        00:00:03 /usr/sbin/haveged --Foreground --verbose=1
+root          36       2  0 Mar11 ?        00:00:00 [kswapd0]
+root          37       2  0 Mar11 ?        00:00:00 [kworker/0:1H-kblockd]
+root         376       1  0 Mar11 ?        00:00:00 /sbin/auditd
+root          38       2  0 Mar11 ?        00:00:00 [kworker/R-nvme-]
+root        3894       1  0 06:25 ?        00:00:00 /sbin/dhclient -4 -d -nw -cf /run/dhclient/dhclient_eth0.conf -pf /run/dhclient/dhclient_eth0.pid -lf /run/dhclient/dhclient_eth0.leases -e IF_METRIC=210 eth0
+root          39       2  0 Mar11 ?        00:00:00 [kworker/R-nvme-]
+root          40       2  0 Mar11 ?        00:00:00 [kworker/R-nvme-]
+root          41       2  0 Mar11 ?        00:00:00 [kworker/R-raid5]
+root           4       2  0 Mar11 ?        00:00:00 [kworker/R-rcu_g]
+root          42       2  0 Mar11 ?        00:00:00 [kworker/R-dm_bu]
+root          43       2  0 Mar11 ?        00:00:00 [kworker/R-tls-s]
+root          44       2  0 Mar11 ?        00:00:00 [kworker/R-mld]
+root          45       2  0 Mar11 ?        00:00:00 [kworker/R-ipv6_]
+root           5       2  0 Mar11 ?        00:00:00 [kworker/R-rcu_p]
+root          53       2  0 Mar11 ?        00:00:00 [kworker/R-kstrp]
+root           6       2  0 Mar11 ?        00:00:00 [kworker/R-slub_]
+root       70474       1  0 07:07 ?        00:00:00 sshd: /usr/sbin/sshd -f /run/sshd/sshd_config [listener] 0 of 10-100 startups
+root       70863       2  0 07:10 ?        00:00:00 [kworker/u2:0-wg-kex-wt0]
+root       70926       1  0 07:10 ?        00:00:29 /usr/bin/netbird service run --log-level info --daemon-addr unix:///var/run/netbird.sock --log-file /var/log/netbird/client.log
+root       71559       2  0 07:12 ?        00:00:00 [kworker/R-wg-cr]
+root       71899       2  0 07:18 ?        00:00:00 [kworker/u2:3-loop0]
+root           7       2  0 Mar11 ?        00:00:00 [kworker/R-netns]
+root       72134   70474  0 07:34 ?        00:00:00 sshd: vyos [priv]
+root       72307       2  0 07:39 ?        00:00:00 [kworker/u2:2-events_unbound]
+root       73642   70474  0 08:19 ?        00:00:00 sshd: vyos [priv]
+root         742       1  0 Mar11 ?        00:00:00 /usr/sbin/acpid
+root         745       1  0 Mar11 ?        00:00:00 /usr/sbin/cron -f
+root         751       1  0 Mar11 ?        00:00:00 /lib/systemd/systemd-logind
+root         759       1  0 Mar11 ?        00:00:00 /usr/sbin/atopacctd
+root       77214       2  0 08:45 ?        00:00:00 [kworker/0:0-events_power_efficient]
+root       79283       2  0 08:51 ?        00:00:00 [kworker/0:2-wg-crypt-wt0]
+root       80362       2  0 08:56 ?        00:00:00 [kworker/0:3-events_freezable_power_]
+root       81521     319  0 09:02 ?        00:00:00 (udev-worker)
+root           9       2  0 Mar11 ?        00:00:00 [kworker/0:0H-kblockd]
+vyos        2025       1  0 Mar11 ?        00:00:00 /lib/systemd/systemd --user
+vyos        2026    2025  0 Mar11 ?        00:00:00 (sd-pam)
+vyos        2044    1861  0 Mar11 tty1     00:00:00 -vbash
+vyos       24691       1  0 07:00 ?        00:00:00 podman
+vyos       44403       1  0 07:00 tty1     00:00:00 bash -c ((( echo cfc9 0100 0001 0000 0000 0000 0a64 7563 6b64 7563 6b67 6f03 636f 6d00 0001 0001 | xxd -p -r >&3; dd bs=9000 count=1 <&3 2>/dev/null | xxd ) 3>/dev/udp/1.1.1.1/53 && echo "DNS accessible") | grep "accessible" && exit 0 ) 2>/dev/null || echo "DNS is not accessible"
+vyos       44407   44403  0 07:00 tty1     00:00:00 bash -c ((( echo cfc9 0100 0001 0000 0000 0000 0a64 7563 6b64 7563 6b67 6f03 636f 6d00 0001 0001 | xxd -p -r >&3; dd bs=9000 count=1 <&3 2>/dev/null | xxd ) 3>/dev/udp/1.1.1.1/53 && echo "DNS accessible") | grep "accessible" && exit 0 ) 2>/dev/null || echo "DNS is not accessible"
+vyos       44408   44403  0 07:00 tty1     00:00:00 grep accessible
+vyos       44413   44407  0 07:00 tty1     00:00:00 bash -c ((( echo cfc9 0100 0001 0000 0000 0000 0a64 7563 6b64 7563 6b67 6f03 636f 6d00 0001 0001 | xxd -p -r >&3; dd bs=9000 count=1 <&3 2>/dev/null | xxd ) 3>/dev/udp/1.1.1.1/53 && echo "DNS accessible") | grep "accessible" && exit 0 ) 2>/dev/null || echo "DNS is not accessible"
+vyos       44418   44413  0 07:00 tty1     00:00:00 dd bs=9000 count=1
+vyos       46493       1  0 07:01 ?        00:00:00 gpg-agent --homedir /home/vyos/.gnupg --use-standard-socket --daemon
+vyos       72213   72134  0 07:34 ?        00:00:00 sshd: vyos@pts/0
+vyos       72214   72213  0 07:34 pts/0    00:00:00 -vbash
+vyos       73403   72214  0 08:17 pts/0    00:00:00 bash
+vyos       73721   73642  0 08:19 ?        00:00:00 sshd: vyos@pts/1
+vyos       73722   73721  0 08:19 pts/1    00:00:00 -vbash
+vyos       73819   73722  0 08:19 pts/1    00:00:00 bash
+vyos       74822   73403  0 08:37 pts/0    00:00:00 bash
+vyos       81498   74822  0 09:02 pts/0    00:00:00 bash ./healthcheck-vyos.sh
+vyos       82496   81498  0 09:02 pts/0    00:00:00 ps -ef
+vyos       82497   81498  0 09:02 pts/0    00:00:00 tail -n +2
+vyos       82498   81498  0 09:02 pts/0    00:00:00 sort
