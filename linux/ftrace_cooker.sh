@@ -8,6 +8,7 @@ function echol(){
 
 sudo trace-cmd stat
 
+
 cd /sys/kernel/tracing
 current=$(cat current_tracer)
 echol "Current tracer: $current"

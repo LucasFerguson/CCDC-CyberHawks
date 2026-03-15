@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Cook Ptrace
 sudo ./ptrace_cooker.sh
 
