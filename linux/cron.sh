@@ -19,3 +19,11 @@ sudo rm -rf /etc/cron.{daily,weekly,hourly,monthly}
 sudo rm -rf /etc/anacron/*
 echo "" > /etc/crontab
 echo "" > /etc/anacrontab
+
+# If Debian/Ubuntu:
+sudo apt-get purge cron anacron
+
+# If RHEL/CentOS/Fedora/Rocky:
+sudo dnf remove cronie anacron
+
+AGGHHH WHICH ONE DO WE DO? (Maybe grep device.json for deb or rhel and do that)
