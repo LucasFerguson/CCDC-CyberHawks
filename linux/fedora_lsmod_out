@@ -1,0 +1,77 @@
+Module                  Size  Used by
+rfkill                 40960  1
+snd_seq_midi           24576  0
+snd_seq_midi_event     16384  1 snd_seq_midi
+nft_fib_inet           12288  1
+nft_fib_ipv4           12288  1 nft_fib_inet
+nft_fib_ipv6           12288  1 nft_fib_inet
+nft_fib                12288  3 nft_fib_ipv6,nft_fib_ipv4,nft_fib_inet
+nft_reject_inet        12288  10
+nf_reject_ipv4         12288  1 nft_reject_inet
+nf_reject_ipv6         20480  1 nft_reject_inet
+nft_reject             12288  1 nft_reject_inet
+nft_ct                 28672  8
+nft_chain_nat          12288  3
+nf_nat                 69632  1 nft_chain_nat
+nf_conntrack          200704  2 nf_nat,nft_ct
+nf_defrag_ipv6         24576  1 nf_conntrack
+nf_defrag_ipv4         12288  1 nf_conntrack
+intel_rapl_msr         20480  0
+intel_rapl_common      61440  1 intel_rapl_msr
+intel_uncore_frequency_common    16384  0
+snd_ens1371            40960  0
+intel_pmc_core        135168  0
+snd_ac97_codec        217088  1 snd_ens1371
+pmt_telemetry          16384  1 intel_pmc_core
+pmt_class              16384  1 pmt_telemetry
+gameport               28672  1 snd_ens1371
+intel_vsec             20480  1 intel_pmc_core
+snd_rawmidi            57344  2 snd_seq_midi,snd_ens1371
+ac97_bus               12288  1 snd_ac97_codec
+vmw_balloon            32768  0
+rapl                   20480  0
+snd_seq               135168  2 snd_seq_midi,snd_seq_midi_event
+nf_tables             425984  289 nft_ct,nft_reject_inet,nft_fib_ipv6,nft_fib_ipv4,nft_chain_nat,nft_reject,nft_fib,nft_fib_inet
+snd_seq_device         16384  3 snd_seq,snd_seq_midi,snd_rawmidi
+snd_pcm               200704  2 snd_ac97_codec,snd_ens1371
+vmxnet3               114688  0
+qrtr                   57344  2
+snd_timer              57344  2 snd_seq,snd_pcm
+snd                   167936  7 snd_seq,snd_seq_device,snd_timer,snd_ac97_codec,snd_pcm,snd_rawmidi,snd_ens1371
+i2c_piix4              40960  0
+soundcore              16384  1 snd
+i2c_smbus              20480  1 i2c_piix4
+sunrpc                925696  1
+joydev                 36864  0
+loop                   45056  0
+dm_multipath           53248  0
+i2c_dev                28672  0
+nfnetlink              24576  3 nf_tables
+vsock_loopback         12288  0
+vmw_vsock_virtio_transport_common    57344  1 vsock_loopback
+zram                   69632  1
+vmw_vsock_vmci_transport    53248  1
+lz4hc_compress         20480  1 zram
+vsock                  65536  7 vmw_vsock_virtio_transport_common,vsock_loopback,vmw_vsock_vmci_transport
+lz4_compress           24576  1 zram
+vmw_vmci              122880  2 vmw_balloon,vmw_vsock_vmci_transport
+xfs                  3674112  2
+polyval_clmulni        12288  0
+nvme                   73728  2
+polyval_generic        12288  1 polyval_clmulni
+ghash_clmulni_intel    16384  0
+vmwgfx                516096  1
+sha512_ssse3           53248  0
+nvme_core             262144  3 nvme
+sha256_ssse3           36864  0
+sha1_ssse3             32768  0
+nvme_auth              28672  1 nvme_core
+drm_ttm_helper         16384  2 vmwgfx
+ttm                   118784  2 vmwgfx,drm_ttm_helper
+ata_generic            12288  0
+pata_acpi              12288  0
+serio_raw              20480  0
+scsi_dh_rdac           16384  0
+scsi_dh_emc            12288  0
+scsi_dh_alua           28672  0
+fuse                  282624  3

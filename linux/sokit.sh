@@ -22,8 +22,6 @@ echo ""
 echo "Shared objects being used in memory that aren't in the standard directories (/lib,/usr/lib,/lib64,/usr/lib64):"
 sudo rg "\.so" /proc/*/maps 2>/dev/null | rg -v "/usr/lib64/|/lib/|/usr/lib/|/lib64/|/usr/libexec/sudo/sudoers.so|/usr/libexec/sudo/libsudo_util.so.0.0.0"
 
-# Search places used to find shared objects
-
 # Check ld cache:
 echo ""
 echo "Check ld cache for shared objects in weird places:"
@@ -33,4 +31,3 @@ strings /etc/ld.so.cache | rg "\.so" | rg -v "/usr/lib64/|/lib/|/usr/lib/|/lib64
 echo ""
 echo "Print all folders checked for shared objects system-wide (found in ld.so.conf and ld.so.conf.d):"
 rg -v "^#" /etc/ld.so.conf*
-# rg "^#" /etc/ld.so.conf.d/*
