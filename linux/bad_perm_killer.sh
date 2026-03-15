@@ -43,3 +43,5 @@ cat bad-cap.txt >> cap_lst.tmp
 
 echo "Potentially bad cap binaries (check whether they have the specific bad capability that makes them dangerous):"
 cat suid_lst.tmp | sort | uniq -d
+
+echo ""
