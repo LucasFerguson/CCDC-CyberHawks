@@ -1,5 +1,4 @@
 import subprocess
-import os
 
 def cmd(command, return_error=False):
     try:
@@ -10,37 +9,6 @@ def cmd(command, return_error=False):
             return e.output
         else:
             return ""
-
-# Cook Ptrace
-print("Activating PTRACE cooker...")
-print(cmd("sudo ./ptrace_cooker.sh", return_error=True))
-
-# Check for FTRACE Hooking
-print("\nChecking if ftrace is enabled...")
-if os.path.exists("/sys/kernel/tracing"):
-    print("/sys/kernel/tracing: exists")
-    tracing1 = True
-else:
-    print("/sys/kernel/tracing: doesn't exist")
-    tracing1 = False
-if os.path.exists("/sys/kernel/debug/tracing"):
-    print("/sys/kernel/debug/tracing: exists")
-    tracing2 = True
-else:
-    print("/sys/kernel/debug/tracing: doesn't exist")
-
-if tracing1 ^ tracing2:
-    print("Very strange! If one exists, the other should...")
-    print("Still assume that ftrace is enabled!")
-elif tracing1:
-    print("Ftrace is enabled!")
-else:
-    print("Ftrace is disabled! Perfect.")
-
-ftrace_enabled = tracing1 or tracing2
-
-# if ftrace_enabled:
-
 
 # Brute force PIDs
 print("\nSearch for hidden pids (will also display threads):")
