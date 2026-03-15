@@ -32,3 +32,14 @@ echo "Bad Sgid:"
 cat sgid_lst.tmp | sort | uniq -d | while read -r line; do echo "Killing bad sgid $line";
     sudo chmod u-g "$(grep -E "$line\$" active_sgid.tmp)";
 done
+
+echol "Searching for all cap binaries:"
+sudo getcap -r / 2>/dev/null > active_cap.tmp
+cat active_cap.tmp
+
+echol "Comparing to bad-cap.txt..."
+cat active_cap.tmp | cut -d' ' -f1 | while read -r line; do echo "$(basename "$line")"; done > cap_lst.tmp
+cat bad-cap.txt >> cap_lst.tmp
+
+echo "Potentially bad cap binaries (check whether they have the specific bad capability that makes them dangerous):"
+cat suid_lst.tmp | sort | uniq -d
