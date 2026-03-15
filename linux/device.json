@@ -2,7 +2,7 @@
     "arch": "rhel",
     "ipv4_addresses": [ 
         "127.0.0.1/8",
-        "compeition_day_ip/cidr"
+        "competition_day_ip/cidr"
     ],
     "services": [
         "httpd"
@@ -19,9 +19,9 @@
     ],
     "hashfile": "device_hashes",
     "preserve_files": [
-        "/home/sysadmin",
-        "/var/www/html",
-        "/root",
+        "/etc/postfix",
+	"/etc/dovecot",
+	"/root",
         "/bin",
         "/var",
         "/sbin",

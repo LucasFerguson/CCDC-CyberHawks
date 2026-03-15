@@ -12,14 +12,24 @@ HASHDIR = "/var/lib/dpkg/info"
 
 hashfiles = cmd(f'ls {HASHDIR} | grep "\.md5sums$"').splitlines()
 
-for hashfile in hashfiles:
-    path = f'{HASHDIR}/{hashfile}'
-    hashstats = os.stat(path)
-    hashstat = max(hashstats.st_mtime, hashstats.st_ctime)
-    list_stats = os.stat(path[:-1*len(".md5sums")] + ".list")
-    list_stat = max(list_stats.st_ctime, list_stats.st_mtime)
-    if hashstat > list_stat:
-        print("shoot", str(hashstat - list_stat))
+
+# Get Package Install Date
+
+# Get .md5sums date
+
+# Get .postinst access date
+
+# Get file itself date
+
+
+# for hashfile in hashfiles:
+#     path = f'{HASHDIR}/{hashfile}'
+#     hashstats = os.stat(path)
+#     hashstat = max(hashstats.st_mtime, hashstats.st_ctime)
+#     list_stats = os.stat(path[:-1*len(".md5sums")] + ".list")
+#     list_stat = max(list_stats.st_ctime, list_stats.st_mtime)
+#     if hashstat > list_stat:
+#         print("shoot", str(hashstat - list_stat))
     # # maxstat = 0
     # with open(path, 'r') as file:
     #     hashedfiles = [" ".join(line.strip().split(" ")[2:]) for line in file.read().splitlines()]
